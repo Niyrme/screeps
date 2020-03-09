@@ -43,7 +43,7 @@ export class CreepFactory {
 														sourceID = Game.spawns[spawnName].memory.minerSource;
 													}
 													else { sourceID = source.id; }
-													
+
 													this.spawnMiner(sourceID as string, roomName, spawnName);
 												}
 											}
@@ -55,38 +55,47 @@ export class CreepFactory {
 					}
 				}
 
-				else if (Game.spawns[spawnName].memory.minHarvesters) {
-					if (numHarvesters == 0 && !Game.spawns[spawnName].memory.minMiners) {
+				if (Game.spawns[spawnName].memory.minHarvesters !== undefined
+					&& Game.spawns[spawnName].memory.minUpgraders !== undefined
+					&& Game.spawns[spawnName].memory.minCarriers !== undefined
+					&& Game.spawns[spawnName].memory.minRepairers !== undefined
+					&& Game.spawns[spawnName].memory.minBuilders !== undefined
+					&& Game.spawns[spawnName].memory.minArchitects !== undefined) {	
+
+					/* useless debugging stuff
+					console.log(`ARCHITECTS: ${numArchitects < Game.spawns[spawnName].memory.minArchitects!} | NUMBERS: ${numArchitects}`);
+					console.log(`BUILDERS:   ${numBuilders < Game.spawns[spawnName].memory.minBuilders!} | NUMBERS: ${numBuilders}`);
+					console.log(`CARRIERS:   ${numCarriers < Game.spawns[spawnName].memory.minCarriers!} | NUMBERS: ${numCarriers}`);
+					console.log(`HARVESTERS: ${numHarvesters < Game.spawns[spawnName].memory.minHarvesters!} | NUMBERS: ${numHarvesters}`);
+					console.log(`REPAIRERS:  ${numRepaierers < Game.spawns[spawnName].memory.minRepairers!} | NUMBERS: ${numRepaierers}`);
+					console.log(`UPGRADERS:  ${numUpgraders < Game.spawns[spawnName].memory.minUpgraders!} | NUMBERS: ${numUpgraders}`);
+					*/
+
+					if (numHarvesters == 0 && !Game.spawns[spawnName].memory.minMiners && numHarvesters < Game.spawns[spawnName].memory.minHarvesters!) {
 						this.spawnCustom(Game.spawns[spawnName].room.energyAvailable, ROLES_ALL.ROLE_HARVESTER, roomName, spawnName);
+						console.log(`SPAWNING EMERGENCY HARVESTER!<br>ROOM:  ${roomName}<br>SPAWN: ${spawnName}`);
 					}
-					if (numHarvesters < Game.spawns[spawnName].memory.minHarvesters!) {
+					else if (numHarvesters < Game.spawns[spawnName].memory.minHarvesters!) {
 						this.spawnCustom(energy, ROLES_ALL.ROLE_HARVESTER, roomName, spawnName);
 					}
-				}
-				else if (Game.spawns[spawnName].memory.minUpgraders) {
-					if (numUpgraders   < Game.spawns[spawnName].memory.minUpgraders!) {
-						this.spawnCustom(energy, ROLES_ALL.ROLE_HARVESTER, roomName, spawnName);
+					else if (numUpgraders < Game.spawns[spawnName].memory.minUpgraders!) {
+						this.spawnCustom(energy, ROLES_ALL.ROLE_UPGRADER, roomName, spawnName);
 					}
-				}
-				else if (Game.spawns[spawnName].memory.minCarriers) {
-					if (numCarriers    < Game.spawns[spawnName].memory.minCarriers!) {
+					else if (numCarriers < Game.spawns[spawnName].memory.minCarriers!) {
 						this.spawnCarrier(energy / 2, roomName, spawnName);
 					}
-				}
-				else if (Game.spawns[spawnName].memory.minRepairers) {
-					if (numRepaierers  < Game.spawns[spawnName].memory.minRepairers!) {
+					else if (numRepaierers < Game.spawns[spawnName].memory.minRepairers!) {
 						this.spawnCustom(energy, ROLES_ALL.ROLE_REPAIRER, roomName, spawnName);
 					}
-				}
-				else if (Game.spawns[spawnName].memory.minBuilders) {
-					if (numBuilders    < Game.spawns[spawnName].memory.minBuilders!) {
+					else if (numBuilders < Game.spawns[spawnName].memory.minBuilders!) {
 						this.spawnCustom(energy, ROLES_ALL.ROLE_BUILDER, roomName, spawnName);
 					}
-				}
-				else if (Game.spawns[spawnName].memory.minArchitects) {
-					if (numArchitects  < Game.spawns[spawnName].memory.minArchitects!) {
+					else if (numArchitects < Game.spawns[spawnName].memory.minArchitects!) {
 						this.spawnArchitect(energy / 2, roomName, spawnName);
 					}
+				}
+				else {
+					console.log(`MISSING PROPERTY IN SPAWN ${spawnName} IN ROOM ${roomName}`);
 				}
 			}
 		}
@@ -95,10 +104,9 @@ export class CreepFactory {
 	private static spawnCustom(energy: number, roleName: string, roomName: string, spawnName: string) {
 		let body: BodyPartConstant[] = [];
 		let creepName: string = `${roleName} - (${roomName} | ${spawnName} | ${Game.time % 1650}) - Niyrme`;
-		let partsNumber: number = Math.floor((energy - 100) / 200);
+		let partsNumber: number = Math.floor(energy / 200);
 		
 		if (energy < 200) { energy = 200; }
-		if (partsNumber < 3) { return null; }
 		if (partsNumber > 16) { partsNumber = 16; }
 
 		for (let i = 0; i < partsNumber; i++) { body.push(WORK); } // Cost: 100
@@ -116,10 +124,9 @@ export class CreepFactory {
 	private static spawnArchitect(energy: number, roomName: string, spawnName: string) {
 		let body: BodyPartConstant[] = [];
 		let creepName: string = `Architect - (${roomName} | ${spawnName} | ${Game.time % 1650}) - Niyrme`;
-		let partsNumber: number = Math.floor((energy - 100) / 150);
+		let partsNumber: number = Math.floor(energy / 150);
 
 		if (energy < 150) { energy = 150; }
-		if (partsNumber < 3) { return null; }
 		if (partsNumber > 16) { partsNumber = 16; }
 
 		for (let i = 0; i < partsNumber * 2; i++) { body.push(CARRY); } // Cost: 50
@@ -134,11 +141,11 @@ export class CreepFactory {
 	}
 	private static spawnCarrier(energy: number, roomName: string, spawnName: string) {
 		let body: BodyPartConstant[] = [];
-		let partsNumber: number = Math.floor((energy - 100) / 150);
+		let partsNumber: number = Math.floor(energy / 150);
 		let creepName: string = `Carrier - (${roomName} | ${spawnName} | ${Game.time % 1650}) - Niyrme`;
 
 		if (energy < 150) { energy = 150; }
-		if (partsNumber < 3) { return null; }
+		if (partsNumber < 3) { partsNumber = 3; }
 		if (partsNumber > 16) { partsNumber = 16; }
 
 		for (let i = 0; i < partsNumber * 2; i++) { body.push(CARRY); } // Cost: 50
