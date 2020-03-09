@@ -1,7 +1,11 @@
 export class MemoryManager {
-  static clean() {
-    this.cleanCreeps();
+	static manageMemory() {
+		this.cleanAll();
   }
+
+	private static cleanAll() {
+		this.cleanCreeps();
+	}
 
   private static cleanCreeps() {
     for (let name in Memory.creeps) {

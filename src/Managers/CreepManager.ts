@@ -1,5 +1,7 @@
 import { ROLES_ALL } from "../Config/Constants";
 
+import { CreepFactory } from "Creeps/CreepFactory";
+
 import { RoleArchitect }  from "Creeps/Roles/RoleArchitect";
 import { RoleBuilder }    from "Creeps/Roles/RoleBuilder";
 import { RoleCarrier }    from "Creeps/Roles/RoleCarrier";
@@ -12,7 +14,12 @@ import { RoleUpgrader }   from "Creeps/Roles/RoleUpgrader";
 
 export class CreepManager {
 
-  static runCreeps() {
+  static manageCreeps() {
+    CreepFactory.spawnCreeps();
+    this.runCreeps();
+  }
+
+  private static runCreeps() {
     for (let creep in Game.creeps) {
       let creepName = Game.creeps[creep].name;
       let creepRole = Game.creeps[creep].memory.role;

@@ -21,28 +21,3 @@ export enum ROLES_ALL {
   ROLE_ROAMER = "roamer", // Claimer and Reserver
   ROLE_SCOUT = "scout",
 }
-
-// All structures
-export enum STRUCTURES_ALL {
-  STRUCTURE_CONTAINER = "container",
-  STRUCTURE_CONTROLLER = "controller",
-  STRUCTURE_EXTENSION = "extension",
-  STRUCTURE_EXTRACTOR = "extractor",
-  STRUCTURE_FACTORY = "factory",
-  STRUCTURE_INVADER_CORE = "invaderCore",
-  STRUCTURE_KEEPER_LAIR = "keeperLair",
-  STRUCTURE_LAB = "lab",
-  STRUCTURE_LINK = "link",
-  STRUCTURE_NUKER = "nuker",
-  STRUCTURE_OBSERVER = "observer",
-  STRUCTURE_PORTAL = "portal",
-  STRUCTURE_POWER_BANK = "powerBank",
-  STRUCTURE_POWER_SPAWN = "powerSpawn",
-  STRUCTURE_RAMPART = "rampart",
-  STRUCTURE_ROAD = "road",
-  STRUCTURE_SPAWN = "spawn",
-  STRUCTURE_STORAGE = "storage",
-  STRUCTURE_TERMINAL = "terminal",
-  STRUCTURE_TOWER = "tower",
-  STRUCTURE_WALL = "constructedWall",
-}

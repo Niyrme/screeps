@@ -1,10 +1,6 @@
-import { CreepManager }   from "Creeps/CreepManager";
-import { CreepFactory }   from "Creeps/CreepFactory";
 import { ErrorMapper }    from "Utils/ErrorMapper";
-import { MemoryManager }  from "Memory/Memory";
+import { Manager }   from "Managers/Manager"
 
 export const loop = ErrorMapper.wrapLoop(() => {
-  MemoryManager.clean();
-  CreepManager.runCreeps();
-  CreepFactory.spawnCreeps();
+  Manager.manageAll();
 });
