@@ -63,12 +63,14 @@ export class CreepFactory {
 					&& Game.spawns[spawnName].memory.minArchitects !== undefined) {	
 
 					/* useless debugging stuff
-					console.log(`ARCHITECTS: ${numArchitects < Game.spawns[spawnName].memory.minArchitects!} | NUMBERS: ${numArchitects}`);
-					console.log(`BUILDERS:   ${numBuilders < Game.spawns[spawnName].memory.minBuilders!} | NUMBERS: ${numBuilders}`);
-					console.log(`CARRIERS:   ${numCarriers < Game.spawns[spawnName].memory.minCarriers!} | NUMBERS: ${numCarriers}`);
-					console.log(`HARVESTERS: ${numHarvesters < Game.spawns[spawnName].memory.minHarvesters!} | NUMBERS: ${numHarvesters}`);
-					console.log(`REPAIRERS:  ${numRepaierers < Game.spawns[spawnName].memory.minRepairers!} | NUMBERS: ${numRepaierers}`);
-					console.log(`UPGRADERS:  ${numUpgraders < Game.spawns[spawnName].memory.minUpgraders!} | NUMBERS: ${numUpgraders}`);
+					if (Game.spawns[spawnName].memory.doDBG) {
+						console.log(`ARCHITECTS: ${numArchitects < Game.spawns[spawnName].memory.minArchitects!} | NUMBERS: ${numArchitects}`);
+						console.log(`BUILDERS:   ${numBuilders < Game.spawns[spawnName].memory.minBuilders!} | NUMBERS: ${numBuilders}`);
+						console.log(`CARRIERS:   ${numCarriers < Game.spawns[spawnName].memory.minCarriers!} | NUMBERS: ${numCarriers}`);
+						console.log(`HARVESTERS: ${numHarvesters < Game.spawns[spawnName].memory.minHarvesters!} | NUMBERS: ${numHarvesters}`);
+						console.log(`REPAIRERS:  ${numRepaierers < Game.spawns[spawnName].memory.minRepairers!} | NUMBERS: ${numRepaierers}`);
+						console.log(`UPGRADERS:  ${numUpgraders < Game.spawns[spawnName].memory.minUpgraders!} | NUMBERS: ${numUpgraders}`);
+					}
 					*/
 
 					if (numHarvesters == 0 && !Game.spawns[spawnName].memory.minMiners && numHarvesters < Game.spawns[spawnName].memory.minHarvesters!) {

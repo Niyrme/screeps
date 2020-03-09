@@ -10,6 +10,8 @@ interface SpawnMemory {
 
 	towersRepair?: boolean;
 	towersRepairWalls?: boolean;
+
+	doDBG?: boolean;
 }
 
 interface CreepMemory {

@@ -26,7 +26,7 @@ export class RoleHarvester {
         structure = this.creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
           filter: s =>
             s.structureType == STRUCTURE_TOWER
-            && ((s.store[RESOURCE_ENERGY] / s.store.getCapacity(RESOURCE_ENERGY)) <= 0.75)
+            && (s.store[RESOURCE_ENERGY] < s.store.getCapacity(RESOURCE_ENERGY))
           }) as StructureTower | undefined | null;
       }
       if (!structure) { structure = this.creep.room.storage; }

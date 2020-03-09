@@ -1,6 +1,11 @@
-import { ErrorMapper }    from "Utils/ErrorMapper";
-import { Manager }   from "Managers/Manager"
+import { ErrorMapper } from "Utils/ErrorMapper";
+
+import { CreepManager } 		from "Managers/CreepManager";
+import { MemoryManager }   	from "Managers/MemoryManager"
+import { StructureManager } from "Managers/StructureManager";
 
 export const loop = ErrorMapper.wrapLoop(() => {
-  Manager.manageAll();
+	CreepManager.manageCreeps();
+	MemoryManager.manageMemory();
+	StructureManager.manageStructures();
 });
