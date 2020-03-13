@@ -5,7 +5,9 @@ interface SpawnMemory {
 	minHarvesters?: number;
 	minMiners?: number;
 	minRepairers?: number;
+	minWallRepairers?: number;
 	minUpgraders?: number;
+
 	minerSource?: string;
 
 	towersRepair?: boolean;

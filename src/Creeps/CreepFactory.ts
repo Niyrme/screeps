@@ -1,6 +1,4 @@
-import * as _ from "lodash";
-
-import { ROLES_ALL } from "../Config/Constants";
+import { ROLES_ALL, CREEP_MEMORY } from "Config/Constants";
 
 export class CreepFactory {
 
@@ -11,13 +9,14 @@ export class CreepFactory {
 				let creepsInRoom: any[] = Game.spawns[spawnName].room.find(FIND_MY_CREEPS);
 				let roomName: string = Game.spawns[spawnName].room.name;
 
-				let numArchitects:  number = _.filter(creepsInRoom, (c) => c.memory.role == ROLES_ALL.ROLE_ARCHITECT).length;
-				let numBuilders:    number = _.filter(creepsInRoom, (c) => c.memory.role == ROLES_ALL.ROLE_BUILDER).length;
-				let numCarriers:    number = _.filter(creepsInRoom, (c) => c.memory.role == ROLES_ALL.ROLE_CARRIER).length;
-				let numHarvesters:  number = _.filter(creepsInRoom, (c) => c.memory.role == ROLES_ALL.ROLE_HARVESTER).length;
-				let numMiners:      number = _.filter(creepsInRoom, (c) => c.memory.role == ROLES_ALL.ROLE_MINER).length;
-				let numRepaierers:  number = _.filter(creepsInRoom, (c) => c.memory.role == ROLES_ALL.ROLE_REPAIRER).length;
-				let numUpgraders:   number = _.filter(creepsInRoom, (c) => c.memory.role == ROLES_ALL.ROLE_UPGRADER).length;
+				let numArchitects:  		number = _.filter(creepsInRoom, (c) => c.memory.role == ROLES_ALL.ROLE_ARCHITECT).length;
+				let numBuilders:    		number = _.filter(creepsInRoom, (c) => c.memory.role == ROLES_ALL.ROLE_BUILDER).length;
+				let numCarriers:    		number = _.filter(creepsInRoom, (c) => c.memory.role == ROLES_ALL.ROLE_CARRIER).length;
+				let numHarvesters:  		number = _.filter(creepsInRoom, (c) => c.memory.role == ROLES_ALL.ROLE_HARVESTER).length;
+				let numMiners:      		number = _.filter(creepsInRoom, (c) => c.memory.role == ROLES_ALL.ROLE_MINER).length;
+				let numRepaierers:  		number = _.filter(creepsInRoom, (c) => c.memory.role == ROLES_ALL.ROLE_REPAIRER).length;
+				let numWallRepaierers:  number = _.filter(creepsInRoom, (c) => c.memory.role == ROLES_ALL.ROLE_REPAIRER && c.memory.mode == CREEP_MEMORY.MODE_REPAIR_WALLS).length;
+				let numUpgraders:   		number = _.filter(creepsInRoom, (c) => c.memory.role == ROLES_ALL.ROLE_UPGRADER).length;
 
 				if (Game.spawns[spawnName].memory.minMiners) {
 					if (Game.spawns[spawnName].memory.minMiners! > 0) {
@@ -59,6 +58,7 @@ export class CreepFactory {
 					&& Game.spawns[spawnName].memory.minUpgraders !== undefined
 					&& Game.spawns[spawnName].memory.minCarriers !== undefined
 					&& Game.spawns[spawnName].memory.minRepairers !== undefined
+					&& Game.spawns[spawnName].memory.minWallRepairers !== undefined
 					&& Game.spawns[spawnName].memory.minBuilders !== undefined
 					&& Game.spawns[spawnName].memory.minArchitects !== undefined) {	
 
@@ -95,6 +95,9 @@ export class CreepFactory {
 					else if (numArchitects < Game.spawns[spawnName].memory.minArchitects!) {
 						this.spawnArchitect(energy / 2, roomName, spawnName);
 					}
+					else if (numWallRepaierers < Game.spawns[spawnName].memory.minWallRepairers!) {
+						this.spawnCustom(energy, ROLES_ALL.ROLE_REPAIRER, roomName, spawnName, CREEP_MEMORY.MODE_REPAIR_WALLS);
+					}
 				}
 				else {
 					console.log(`MISSING PROPERTY IN SPAWN ${spawnName} IN ROOM ${roomName}`);
@@ -103,24 +106,34 @@ export class CreepFactory {
 		}
 	}
 
-	private static spawnCustom(energy: number, roleName: string, roomName: string, spawnName: string) {
+	private static spawnCustom(energy: number, roleName: string, roomName: string, spawnName: string, mode?: string) {
 		let body: BodyPartConstant[] = [];
 		let creepName: string = `${roleName} - (${roomName} | ${spawnName} | ${Game.time % 1650}) - Niyrme`;
 		let partsNumber: number = Math.floor(energy / 200);
-		
+
+		let memory: CreepMemory = {
+			role: roleName,
+			isWorking: false
+		};
+
+		if (mode != undefined) {
+			memory = {
+				role: roleName,
+				isWorking: false,
+				mode: mode
+			}
+		}
+
 		if (energy < 200) { energy = 200; }
 		if (partsNumber > 16) { partsNumber = 16; }
 
-		for (let i = 0; i < partsNumber; i++) { body.push(WORK); } // Cost: 100
-		for (let i = 0; i < partsNumber; i++) { body.push(CARRY); } // Cost: 50
-		for (let i = 0; i < partsNumber; i++) { body.push(MOVE); } // Cost: 50
+		for (let i = 0; i < partsNumber; i++) {
+			body.push(WORK);
+			body.push(CARRY);
+			body.push(MOVE);
+		}
 
-		return Game.spawns[spawnName].spawnCreep(body, creepName, {
-			memory: {
-				role: roleName,
-				isWorking: false
-			}
-		});
+		return Game.spawns[spawnName].spawnCreep(body, creepName, { memory });
 	}
 
 	private static spawnArchitect(energy: number, roomName: string, spawnName: string) {
@@ -131,8 +144,11 @@ export class CreepFactory {
 		if (energy < 150) { energy = 150; }
 		if (partsNumber > 16) { partsNumber = 16; }
 
-		for (let i = 0; i < partsNumber * 2; i++) { body.push(CARRY); } // Cost: 50
-		for (let i = 0; i < partsNumber; i++) { body.push(MOVE); } // Cost: 50
+		for (let i = 0; i < partsNumber; i++) {
+			body.push(CARRY);
+			body.push(CARRY);
+			body.push(MOVE);
+		}
 
 		return Game.spawns[spawnName].spawnCreep(body, creepName, {
 			memory: {
@@ -147,11 +163,13 @@ export class CreepFactory {
 		let creepName: string = `Carrier - (${roomName} | ${spawnName} | ${Game.time % 1650}) - Niyrme`;
 
 		if (energy < 150) { energy = 150; }
-		if (partsNumber < 3) { partsNumber = 3; }
 		if (partsNumber > 16) { partsNumber = 16; }
 
-		for (let i = 0; i < partsNumber * 2; i++) { body.push(CARRY); } // Cost: 50
-		for (let i = 0; i < partsNumber; i++) { body.push(MOVE); } // Cost: 50
+		for (let i = 0; i < partsNumber; i++) {
+			body.push(CARRY); 
+			body.push(CARRY); 
+			body.push(MOVE); 
+		}
 
 		return Game.spawns[spawnName].spawnCreep(body, creepName, {
 			memory: {
@@ -177,7 +195,8 @@ export class CreepFactory {
 		return Game.spawns[spawnName].spawnCreep([CLAIM,CLAIM,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE], creepName, {
 			memory: {
 				role: ROLES_ALL.ROLE_ROAMER,
-				target: target
+				target: target,
+				mode: mode
 			}
 		});
 	}

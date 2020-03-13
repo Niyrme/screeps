@@ -1,7 +1,5 @@
 import { cStructureTower } from "Structures/cStructureTower";
 
-import * as lodash from "lodash";
-
 export class StructureManager {
 	static manageStructures() {
 		for (let spawnName in Game.spawns) {
@@ -12,15 +10,15 @@ export class StructureManager {
 	}
 
 	private static manageTowers(tower: StructureTower, spawn: StructureSpawn): void {
-		let enemyCreeps: Creep[] | null | undefined | void = tower.room.find(FIND_HOSTILE_CREEPS);
+		let enemyCreeps: Creep[] | undefined = tower.room.find(FIND_HOSTILE_CREEPS);
 
-		if (enemyCreeps) {
-			cStructureTower.defend(tower, enemyCreeps);
+		if (enemyCreeps.length > 0) {
+			cStructureTower.defend(tower);
 		}
 		else {
-			cStructureTower.support(tower, (lodash.filter(Game.creeps, (c) => c.hits < c.hitsMax)));
+			cStructureTower.support(tower);
 			if (spawn.memory.towersRepair && (tower.store[RESOURCE_ENERGY] >= tower.store.getCapacity(RESOURCE_ENERGY) / 2)) {
-				cStructureTower.rebuild(tower, (lodash.filter(Game.structures, (s) => s.hits < s.hitsMax && s.structureType != STRUCTURE_WALL)));
+				cStructureTower.rebuild(tower, spawn.memory.towersRepairWalls);
 			}
 		}
 	}

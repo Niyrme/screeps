@@ -15,16 +15,13 @@ export class RoleMiner {
       })[0] as StructureContainer | undefined | null;
     }
 
-    // It works (?)
-    if (container) {
-      if (source) {
-        if (this.creep.pos.isEqualTo(container.pos)) {
-          this.creep.harvest(source);
-        }
-        else {
-          this.creep.moveTo(container);
-        }
-      }
-    }
-  }
+    if (container && source) {
+			if (this.creep.pos.isEqualTo(container.pos)) {
+				this.creep.harvest(source);
+			}
+			else {
+				this.creep.moveTo(container);
+			}
+		}
+	}
 }
