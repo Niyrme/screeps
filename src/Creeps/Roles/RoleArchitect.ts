@@ -24,12 +24,14 @@ export class RoleArchitect {
 				if ((grave.store[RESOURCE_ENERGY] > 0) && (this.creep.withdraw(grave, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)) {
 					this.creep.moveTo(grave);
 				}
+				else { this.creep.memory.isWorking = true; }
 			});
 
 			this.creep.room.find(FIND_RUINS).forEach(ruin => {
 				if ((ruin.store[RESOURCE_ENERGY] > 0) && (this.creep.withdraw(ruin, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)) {
 					this.creep.moveTo(ruin);
 				}
+				else { this.creep.memory.isWorking = true; }
 			});
 		}
 	}

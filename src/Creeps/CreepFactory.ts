@@ -39,17 +39,11 @@ export class CreepFactory {
 		let creepName: string = `${template.role} - (${roomName} | ${spawnName} | ${Game.time % 1650}) - Niyrme`;
 		let partsNumber: number = Math.floor(energy / 200);
 
-		let defaultMemory: CreepMemory = {
+		let memory: CreepMemory = {
 			role: template.role,
-			isWorking: false
-		}
-		let optionalMemory = {}
-
-		if (template.mode != undefined) {
-			optionalMemory = { ...optionalMemory, mode: template.mode }
-		}
-		if (sourceID != undefined) {
-			optionalMemory = { ...optionalMemory, sourceID: sourceID }
+			isWorking: false,
+			mode: template.mode,
+			sourceID: sourceID
 		}
 
 		if (template.bodyType == SPAWN_CONSTANTS.MODE_MULTI) {
@@ -63,6 +57,6 @@ export class CreepFactory {
 			creepBody = template.body;
 		}
 
-		return Game.spawns[spawnName].spawnCreep(creepBody, creepName, { memory: { ...defaultMemory, ...optionalMemory } });
+		return Game.spawns[spawnName].spawnCreep(creepBody, creepName, { memory });
 	}
 }

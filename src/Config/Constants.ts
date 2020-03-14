@@ -1,13 +1,13 @@
 // Roles
-export const ROLE_ARCHITECT = "architect"; // Taking resources from Tombstones, Ruins, Graves, etc. TODO better name
-export const ROLE_BUILDER = "builder";
-export const ROLE_CARRIER = "carrier";
-export const ROLE_HARVESTER = "harvester";
-export const ROLE_MINER = "miner";
-export const ROLE_REPAIRER = "repairer";
-export const ROLE_SCOUT = "scout";
-export const ROLE_ROAMER = "roamer"; // Claimer and Reserver
-export const ROLE_UPGRADER = "upgrader";
+export const ROLE_ARCHITECT: string = "architect"; // Taking resources from Tombstones, Ruins, Graves, etc. TODO better name
+export const ROLE_BUILDER: string = "builder";
+export const ROLE_CARRIER: string = "carrier";
+export const ROLE_HARVESTER: string = "harvester";
+export const ROLE_MINER: string = "miner";
+export const ROLE_REPAIRER: string = "repairer";
+export const ROLE_SCOUT: string = "scout";
+export const ROLE_ROAMER: string = "roamer"; // Claimer and Reserver
+export const ROLE_UPGRADER: string = "upgrader";
 
 // All roles sorted by spawn priority (not that it matters atm)
 export enum ROLES_ALL {

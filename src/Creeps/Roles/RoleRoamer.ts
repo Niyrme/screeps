@@ -7,7 +7,7 @@ export class RoleRoamer {
     this.creep = Game.creeps[creepName];
   }
 
-  // TODO FIXME
+// TODO FIXME
   public runCreep() {
     if (this.creep.memory.mode == CREEP_MEMORY.MODE_CLAIM) {
       if (this.creep.room.name != this.creep.memory.target) {
