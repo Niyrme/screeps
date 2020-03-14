@@ -17,8 +17,8 @@ export enum ROLES_ALL {
   ROLE_CARRIER = "carrier",
   ROLE_REPAIRER = "repairer",
   ROLE_BUILDER = "builder",
-  ROLE_ARCHITECT = "architect", // Taking resources from Tombstones, Ruins, Graves, etc. TODO better name
-  ROLE_ROAMER = "roamer", // Claimer and Reserver
+  ROLE_ARCHITECT = "architect",
+  ROLE_ROAMER = "roamer",
   ROLE_SCOUT = "scout",
 };
 
@@ -27,3 +27,20 @@ export enum CREEP_MEMORY {
 	MODE_RESERVE = "reserve",
 	MODE_REPAIR_WALLS = "repairWalls",
 };
+
+export enum SPAWN_CONSTANTS {
+	MODE_SINGLE = "single",
+	MODE_MULTI = "multi",
+}
+
+export const ROLES = [
+	ROLE_MINER,
+	ROLE_HARVESTER,
+	ROLE_UPGRADER,
+	ROLE_CARRIER,
+	ROLE_REPAIRER,
+	ROLE_BUILDER,
+	ROLE_ARCHITECT,
+	ROLE_ROAMER,
+	ROLE_SCOUT,
+];

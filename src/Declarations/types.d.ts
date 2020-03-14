@@ -31,6 +31,17 @@ interface Memory {
 	log: any;
 }
 
+interface TemplateCreep {
+	name: string;
+	role: string;
+
+	bodyType: string;
+	body: BodyPartConstant[];
+
+	creepClass: any;
+	mode?: string;
+}
+
 // `global` extension samples
 declare namespace NodeJS {
 	interface Global {

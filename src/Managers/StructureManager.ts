@@ -1,4 +1,4 @@
-import { cStructureTower } from "Structures/cStructureTower";
+import { cStructureTower } from "Structures/StructureExports";
 
 export class StructureManager {
 	static manageStructures() {

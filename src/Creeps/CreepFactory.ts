@@ -1,4 +1,6 @@
-import { ROLES_ALL, CREEP_MEMORY } from "Config/Constants";
+import { SPAWN_CONSTANTS } from "Config/Constants";
+import * as S from "Structures/StructureExports";
+import { TEMPLATE_CREEPS } from "Config/Templates/Templates";
 
 export class CreepFactory {
 
@@ -9,94 +11,20 @@ export class CreepFactory {
 				let creepsInRoom: any[] = Game.spawns[spawnName].room.find(FIND_MY_CREEPS);
 				let roomName: string = Game.spawns[spawnName].room.name;
 
-				let numArchitects:  		number = _.filter(creepsInRoom, (c) => c.memory.role == ROLES_ALL.ROLE_ARCHITECT).length;
-				let numBuilders:    		number = _.filter(creepsInRoom, (c) => c.memory.role == ROLES_ALL.ROLE_BUILDER).length;
-				let numCarriers:    		number = _.filter(creepsInRoom, (c) => c.memory.role == ROLES_ALL.ROLE_CARRIER).length;
-				let numHarvesters:  		number = _.filter(creepsInRoom, (c) => c.memory.role == ROLES_ALL.ROLE_HARVESTER).length;
-				let numMiners:      		number = _.filter(creepsInRoom, (c) => c.memory.role == ROLES_ALL.ROLE_MINER).length;
-				let numRepaierers:  		number = _.filter(creepsInRoom, (c) => c.memory.role == ROLES_ALL.ROLE_REPAIRER).length;
-				let numWallRepaierers:  number = _.filter(creepsInRoom, (c) => c.memory.role == ROLES_ALL.ROLE_REPAIRER && c.memory.mode == CREEP_MEMORY.MODE_REPAIR_WALLS).length;
-				let numUpgraders:   		number = _.filter(creepsInRoom, (c) => c.memory.role == ROLES_ALL.ROLE_UPGRADER).length;
-
-				if (Game.spawns[spawnName].memory.minMiners) {
-					if (Game.spawns[spawnName].memory.minMiners! > 0) {
-						if (numHarvesters == 0 && numCarriers == 0) {
-							if (Game.spawns[spawnName].room.storage) {
-								if (numMiners > 0 || (Game.spawns[spawnName].room.storage! && Game.spawns[spawnName].room.storage!.store[RESOURCE_ENERGY] >= 150 + 550)) {
-									this.spawnCarrier(Game.spawns[spawnName].room.energyAvailable, roomName, spawnName);
-								}
-								else { this.spawnCustom(Game.spawns[spawnName].room.energyAvailable, ROLES_ALL.ROLE_HARVESTER, roomName, spawnName); }
-							}
-						}
-						else {
-							if (numMiners < Game.spawns[spawnName].memory.minMiners!) {
-								let sources = Game.spawns[spawnName].room.find(FIND_SOURCES) as Source[] | undefined | null;
-								if (sources) {
-									for (let source of sources) {
-										if (!_.some(creepsInRoom, (c) => c.memory.role == ROLES_ALL.ROLE_MINER && c.memory.sourceID == source.id)) {
-											let containers = source.pos.findInRange(FIND_STRUCTURES, 1, { filter: s => s.structureType == STRUCTURE_CONTAINER }) as StructureContainer[] | undefined | null;
-											if (containers) {
-												if (containers.length > 0) {
-													let sourceID: string | undefined;
-													if (Game.spawns[spawnName].memory.minerSource) {
-														sourceID = Game.spawns[spawnName].memory.minerSource;
-													}
-													else { sourceID = source.id; }
-
-													this.spawnMiner(sourceID as string, roomName, spawnName);
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-
 				if (Game.spawns[spawnName].memory.minHarvesters !== undefined
 					&& Game.spawns[spawnName].memory.minUpgraders !== undefined
 					&& Game.spawns[spawnName].memory.minCarriers !== undefined
 					&& Game.spawns[spawnName].memory.minRepairers !== undefined
 					&& Game.spawns[spawnName].memory.minWallRepairers !== undefined
 					&& Game.spawns[spawnName].memory.minBuilders !== undefined
-					&& Game.spawns[spawnName].memory.minArchitects !== undefined) {	
+					&& Game.spawns[spawnName].memory.minArchitects !== undefined) {
 
-					/* useless debugging stuff
-					if (Game.spawns[spawnName].memory.doDBG) {
-						console.log(`ARCHITECTS: ${numArchitects < Game.spawns[spawnName].memory.minArchitects!} | NUMBERS: ${numArchitects}`);
-						console.log(`BUILDERS:   ${numBuilders < Game.spawns[spawnName].memory.minBuilders!} | NUMBERS: ${numBuilders}`);
-						console.log(`CARRIERS:   ${numCarriers < Game.spawns[spawnName].memory.minCarriers!} | NUMBERS: ${numCarriers}`);
-						console.log(`HARVESTERS: ${numHarvesters < Game.spawns[spawnName].memory.minHarvesters!} | NUMBERS: ${numHarvesters}`);
-						console.log(`REPAIRERS:  ${numRepaierers < Game.spawns[spawnName].memory.minRepairers!} | NUMBERS: ${numRepaierers}`);
-						console.log(`UPGRADERS:  ${numUpgraders < Game.spawns[spawnName].memory.minUpgraders!} | NUMBERS: ${numUpgraders}`);
-					}
-					*/
+					for (let template of TEMPLATE_CREEPS) {
+						let count: number = _.filter(creepsInRoom, (c) => c.memory.role == template.role).length;
 
-					if (numHarvesters == 0 && !Game.spawns[spawnName].memory.minMiners && numHarvesters < Game.spawns[spawnName].memory.minHarvesters!) {
-						this.spawnCustom(Game.spawns[spawnName].room.energyAvailable, ROLES_ALL.ROLE_HARVESTER, roomName, spawnName);
-						console.log(`SPAWNING EMERGENCY HARVESTER!<br>ROOM:  ${roomName}<br>SPAWN: ${spawnName}`);
-					}
-					else if (numHarvesters < Game.spawns[spawnName].memory.minHarvesters!) {
-						this.spawnCustom(energy, ROLES_ALL.ROLE_HARVESTER, roomName, spawnName);
-					}
-					else if (numUpgraders < Game.spawns[spawnName].memory.minUpgraders!) {
-						this.spawnCustom(energy, ROLES_ALL.ROLE_UPGRADER, roomName, spawnName);
-					}
-					else if (numCarriers < Game.spawns[spawnName].memory.minCarriers!) {
-						this.spawnCarrier(energy / 2, roomName, spawnName);
-					}
-					else if (numRepaierers < Game.spawns[spawnName].memory.minRepairers!) {
-						this.spawnCustom(energy, ROLES_ALL.ROLE_REPAIRER, roomName, spawnName);
-					}
-					else if (numBuilders < Game.spawns[spawnName].memory.minBuilders!) {
-						this.spawnCustom(energy, ROLES_ALL.ROLE_BUILDER, roomName, spawnName);
-					}
-					else if (numArchitects < Game.spawns[spawnName].memory.minArchitects!) {
-						this.spawnArchitect(energy / 2, roomName, spawnName);
-					}
-					else if (numWallRepaierers < Game.spawns[spawnName].memory.minWallRepairers!) {
-						this.spawnCustom(energy, ROLES_ALL.ROLE_REPAIRER, roomName, spawnName, CREEP_MEMORY.MODE_REPAIR_WALLS);
+						if (count < new S.GetMin(spawnName, template.role).getMin()) {
+							this.spawnTemplate(energy, roomName, spawnName, template);
+						}
 					}
 				}
 				else {
@@ -106,98 +34,35 @@ export class CreepFactory {
 		}
 	}
 
-	private static spawnCustom(energy: number, roleName: string, roomName: string, spawnName: string, mode?: string) {
-		let body: BodyPartConstant[] = [];
-		let creepName: string = `${roleName} - (${roomName} | ${spawnName} | ${Game.time % 1650}) - Niyrme`;
+	private static spawnTemplate(energy: number, roomName: string, spawnName: string, template: TemplateCreep, sourceID?: string) {
+		let creepBody: BodyPartConstant[] = [];
+		let creepName: string = `${template.role} - (${roomName} | ${spawnName} | ${Game.time % 1650}) - Niyrme`;
 		let partsNumber: number = Math.floor(energy / 200);
 
-		let memory: CreepMemory = {
-			role: roleName,
+		let defaultMemory: CreepMemory = {
+			role: template.role,
 			isWorking: false
-		};
+		}
+		let optionalMemory = {}
 
-		if (mode != undefined) {
-			memory = {
-				role: roleName,
-				isWorking: false,
-				mode: mode
-			}
+		if (template.mode != undefined) {
+			optionalMemory = { ...optionalMemory, mode: template.mode }
+		}
+		if (sourceID != undefined) {
+			optionalMemory = { ...optionalMemory, sourceID: sourceID }
 		}
 
-		if (energy < 200) { energy = 200; }
-		if (partsNumber > 16) { partsNumber = 16; }
-
-		for (let i = 0; i < partsNumber; i++) {
-			body.push(WORK);
-			body.push(CARRY);
-			body.push(MOVE);
+		if (template.bodyType == SPAWN_CONSTANTS.MODE_MULTI) {
+			for (let bodyPart in template.body) {
+				for (let i = 0; i < partsNumber; i++) {
+					creepBody.push(template.body[bodyPart]);
+				}
+			}
+		}
+		else if (template.bodyType == SPAWN_CONSTANTS.MODE_SINGLE) {
+			creepBody = template.body;
 		}
 
-		return Game.spawns[spawnName].spawnCreep(body, creepName, { memory });
-	}
-
-	private static spawnArchitect(energy: number, roomName: string, spawnName: string) {
-		let body: BodyPartConstant[] = [];
-		let creepName: string = `Architect - (${roomName} | ${spawnName} | ${Game.time % 1650}) - Niyrme`;
-		let partsNumber: number = Math.floor(energy / 150);
-
-		if (energy < 150) { energy = 150; }
-		if (partsNumber > 16) { partsNumber = 16; }
-
-		for (let i = 0; i < partsNumber; i++) {
-			body.push(CARRY);
-			body.push(CARRY);
-			body.push(MOVE);
-		}
-
-		return Game.spawns[spawnName].spawnCreep(body, creepName, {
-			memory: {
-				role: ROLES_ALL.ROLE_ARCHITECT,
-				isWorking: false
-			}
-		});
-	}
-	private static spawnCarrier(energy: number, roomName: string, spawnName: string) {
-		let body: BodyPartConstant[] = [];
-		let partsNumber: number = Math.floor(energy / 150);
-		let creepName: string = `Carrier - (${roomName} | ${spawnName} | ${Game.time % 1650}) - Niyrme`;
-
-		if (energy < 150) { energy = 150; }
-		if (partsNumber > 16) { partsNumber = 16; }
-
-		for (let i = 0; i < partsNumber; i++) {
-			body.push(CARRY); 
-			body.push(CARRY); 
-			body.push(MOVE); 
-		}
-
-		return Game.spawns[spawnName].spawnCreep(body, creepName, {
-			memory: {
-				role: ROLES_ALL.ROLE_CARRIER,
-				isWorking: false
-			}
-		})
-	}
-	private static spawnMiner(sourceID: string, roomName: string, spawnName: string) {
-		let creepName: string = `miner => ${sourceID} - (${roomName} | ${spawnName} | ${Game.time % 1650}) - Niyrme`;
-		let body: BodyPartConstant[] = [WORK,WORK,WORK,WORK,WORK,MOVE,MOVE];
-
-		return Game.spawns[spawnName].spawnCreep(body, creepName, {
-			memory: {
-				role: ROLES_ALL.ROLE_MINER,
-				sourceID: sourceID
-			}
-		});
-	}
-	private static spawnRoamer(target: string, roomName: string, spawnName: string, mode: string) {
-		let creepName = `Roamer => ${target} - (${roomName} | ${spawnName} | ${Game.time % 1650}) - Niyrme`;
-		
-		return Game.spawns[spawnName].spawnCreep([CLAIM,CLAIM,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE], creepName, {
-			memory: {
-				role: ROLES_ALL.ROLE_ROAMER,
-				target: target,
-				mode: mode
-			}
-		});
+		return Game.spawns[spawnName].spawnCreep(creepBody, creepName, { memory: { ...defaultMemory, ...optionalMemory } });
 	}
 }

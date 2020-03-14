@@ -43,8 +43,7 @@ export class RoleRepairer {
 				}
 			}
 			else {
-				let R = new RoleCarrier(this.creep.name);
-				R.runCreep();
+				new RoleCarrier(this.creep.name).runCreep();
 			}
 		}
 		else {
