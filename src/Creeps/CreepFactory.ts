@@ -36,7 +36,7 @@ export class CreepFactory {
 
 	private static spawnTemplate(energy: number, roomName: string, spawnName: string, template: TemplateCreep, sourceID?: string) {
 		let creepBody: BodyPartConstant[] = [];
-		let creepName: string = `${template.role} - (${roomName} | ${spawnName} | ${Game.time % 1650}) - Niyrme`;
+		let creepName: string = `${template.role} - (${roomName} | ${spawnName} | ${Game.time % 1650}) - ${Memory.randomData.player}`;
 		let partsNumber: number = Math.floor(energy / 200);
 
 		let memory: CreepMemory = {

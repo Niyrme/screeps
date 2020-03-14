@@ -29,6 +29,7 @@ interface CreepMemory {
 interface Memory {
 	uuid: number;
 	log: any;
+	randomData: any;
 }
 
 interface TemplateCreep {
