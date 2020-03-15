@@ -1,3 +1,5 @@
+import { RoleUpgrader } from "Creeps/Roles/RoleUpgrader";
+
 export class RoleBuilder {
 
 	private creep: Creep;
@@ -19,6 +21,9 @@ export class RoleBuilder {
 				if (this.creep.build(constructionSite) == ERR_NOT_IN_RANGE) {
 					this.creep.moveTo(constructionSite);
 				}
+			}
+			else {
+				new RoleUpgrader(this.creep.name).runCreep();
 			}
 		}
 		else {

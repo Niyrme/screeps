@@ -1,6 +1,6 @@
 import { CREEP_MEMORY } from "Config/Constants";
 
-import { RoleCarrier } from "Creeps/Roles/RoleCarrier";
+import { RoleHarvester } from "Creeps/Roles/RoleHarvester";
 
 export class RoleRepairer {
 
@@ -36,14 +36,14 @@ export class RoleRepairer {
 			}
 			else {
 				structure = this.creep.pos.findClosestByPath(FIND_STRUCTURES, { filter: (s) => ( (s.hits / s.hitsMax) <= 0.75) && s.structureType == STRUCTURE_WALL } );
-			}			
+			}
 			if (structure) {
 				if (this.creep.repair(structure) == ERR_NOT_IN_RANGE) {
 					this.creep.moveTo(structure);
 				}
 			}
 			else {
-				new RoleCarrier(this.creep.name).runCreep();
+				new RoleHarvester(this.creep.name).runCreep();
 			}
 		}
 		else {

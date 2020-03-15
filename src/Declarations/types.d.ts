@@ -10,6 +10,9 @@ interface SpawnMemory {
 
 	minerSource?: string;
 
+	claimRoom?: string;
+	reserveRoom?: string;
+
 	towersRepair?: boolean;
 	towersRepairWalls?: boolean;
 
