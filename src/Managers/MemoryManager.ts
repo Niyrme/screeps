@@ -14,7 +14,7 @@ export class MemoryManager {
 (from ${reportDate})
 Your current Global Control Level is ${Game.gcl.level}
 Your current Global Power Level is ${Game.gpl.level}
-`; // FIXME Game.rooms.length not accurate
+`;
 
 			if (reportDate != Memory.randomData.lastReport) {
 				for (let spawnName in Game.spawns) {
@@ -41,7 +41,7 @@ Your current Global Power Level is ${Game.gpl.level}
 				Memory.randomData.lastReport = reportDate;
 			}
 		}
-  }
+	}
 
 	private static checkMemory() {
 		if (!Memory.randomData) {
@@ -59,11 +59,11 @@ Your current Global Power Level is ${Game.gpl.level}
 		this.cleanCreeps();
 	}
 
-  private static cleanCreeps() {
-    for (let name in Memory.creeps) {
-      if (!(name in Game.creeps)) {
-        delete Memory.creeps[name];
-      }
-    }
-  }
+	private static cleanCreeps() {
+		for (let name in Memory.creeps) {
+			if (!(name in Game.creeps)) {
+				delete Memory.creeps[name];
+			}
+		}
+	}
 }

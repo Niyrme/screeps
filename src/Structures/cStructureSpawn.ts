@@ -36,7 +36,7 @@ export class GetMin {
 			case ROLES_ALL.ROLE_UPGRADER:
 				min = this.spawnMem.minUpgraders!;
 				break;
-		
+
 			default:
 				min = 0;
 				break;

@@ -11,15 +11,15 @@ export const ROLE_UPGRADER: string = "upgrader";
 
 // All roles sorted by spawn priority (not that it matters atm)
 export enum ROLES_ALL {
-  ROLE_MINER = "miner",
-  ROLE_HARVESTER = "harvester",
-  ROLE_UPGRADER = "upgrader",
-  ROLE_CARRIER = "carrier",
-  ROLE_REPAIRER = "repairer",
-  ROLE_BUILDER = "builder",
-  ROLE_ARCHITECT = "architect",
-  ROLE_ROAMER = "roamer",
-  ROLE_SCOUT = "scout",
+	ROLE_MINER = "miner",
+	ROLE_HARVESTER = "harvester",
+	ROLE_UPGRADER = "upgrader",
+	ROLE_CARRIER = "carrier",
+	ROLE_REPAIRER = "repairer",
+	ROLE_BUILDER = "builder",
+	ROLE_ARCHITECT = "architect",
+	ROLE_ROAMER = "roamer",
+	ROLE_SCOUT = "scout",
 };
 
 export enum CREEP_MEMORY {

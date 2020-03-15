@@ -1,14 +1,14 @@
 // NOTE unused
 export class RoleScout {
 
-  private creep: Creep;
-  constructor(creepName: string) {
-    this.creep = Game.creeps[creepName];
-  }
+	private creep: Creep;
+	constructor(creepName: string) {
+		this.creep = Game.creeps[creepName];
+	}
 
-  public runCreep() {
+	public runCreep() {
 
-    if (this.creep.memory.isWorking) { }
-    else { }
-  }
+		if (this.creep.memory.isWorking) { }
+		else { }
+	}
 }
