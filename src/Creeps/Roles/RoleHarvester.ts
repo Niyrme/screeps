@@ -33,10 +33,23 @@ export class RoleHarvester {
 			}
 		}
 		else {
-			let source = this.creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE) as Source | undefined | null;
-			if (source) {
-				if (this.creep.harvest(source) == ERR_NOT_IN_RANGE) {
-					this.creep.moveTo(source);
+			if (this.creep.memory.target != undefined) {
+				if (this.creep.room.name != this.creep.memory.target) {
+					let exit: ExitConstant | ERR_NO_PATH | ERR_INVALID_ARGS = this.creep.room.findExitTo(this.creep.memory.target);
+					if (exit > 0) { // No Error
+						let closest = this.creep.pos.findClosestByPath(exit as ExitConstant)
+						if (closest) { // Found an exit
+							this.creep.moveTo(closest);
+						}
+					}
+				}
+			}
+			else {
+				let source = this.creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE) as Source | undefined | null;
+				if (source) {
+					if (this.creep.harvest(source) == ERR_NOT_IN_RANGE) {
+						this.creep.moveTo(source);
+					}
 				}
 			}
 		}

@@ -27,22 +27,35 @@ export class RoleBuilder {
 			}
 		}
 		else {
-			let storageStructure = this.creep.pos.findClosestByPath(FIND_STRUCTURES, { filter: s => (
-				s.structureType == STRUCTURE_CONTAINER
-				|| s.structureType == STRUCTURE_STORAGE)
-				&& s.store[RESOURCE_ENERGY] >= 500
-			}) as StructureContainer | StructureStorage | undefined | null;
-
-			if (storageStructure) {
-				if (this.creep.withdraw(storageStructure, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-					this.creep.moveTo(storageStructure);
+			if (this.creep.memory.target != undefined) {
+				if (this.creep.room.name != this.creep.memory.target) {
+					let exit: ExitConstant | ERR_NO_PATH | ERR_INVALID_ARGS = this.creep.room.findExitTo(this.creep.memory.target);
+					if (exit > 0) { // No Error
+						let closest = this.creep.pos.findClosestByPath(exit as ExitConstant)
+						if (closest) { // Found an exit
+							this.creep.moveTo(closest);
+						}
+					}
 				}
 			}
 			else {
-				var source= this.creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE) as Source | undefined | null;
-				if (source) {
-					if (this.creep.harvest(source) == ERR_NOT_IN_RANGE) {
-						this.creep.moveTo(source);
+				let storageStructure = this.creep.pos.findClosestByPath(FIND_STRUCTURES, { filter: s => (
+					s.structureType == STRUCTURE_CONTAINER
+					|| s.structureType == STRUCTURE_STORAGE)
+					&& s.store[RESOURCE_ENERGY] >= 500
+				}) as StructureContainer | StructureStorage | undefined | null;
+
+				if (storageStructure) {
+					if (this.creep.withdraw(storageStructure, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+						this.creep.moveTo(storageStructure);
+					}
+				}
+				else {
+					var source= this.creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE) as Source | undefined | null;
+					if (source) {
+						if (this.creep.harvest(source) == ERR_NOT_IN_RANGE) {
+							this.creep.moveTo(source);
+						}
 					}
 				}
 			}
