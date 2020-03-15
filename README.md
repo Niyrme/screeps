@@ -14,4 +14,4 @@ Don't judge me and my 7% of knowledge of what I'm actually doing...
 - [x] Wall Repairing
 - [ ] Mulit Rooming setup (reserver and claimer creep)
 
-(Originally forked from [Screeps-Typesctipt-Starter by Screepers](https://github.com/screepers/screeps-typescript-starter))
+(Originally forked from [Screeps-Typesctipt-Starter](https://github.com/screepers/screeps-typescript-starter) by [screepers](https://github.com/screepers))
