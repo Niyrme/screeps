@@ -20,11 +20,11 @@ export class RoleRepairer {
 
 		if (this.creep.memory.isWorking) {
 			let structure = undefined;
-			if (this.creep.memory.mode !== CREEP_MEMORY.MODE_REPAIR_WALLS) {
+			if (this.creep.memory.mode == CREEP_MEMORY.MODE_REPAIR_WALLS) {
 				let walls = this.creep.room.find(FIND_STRUCTURES, { filter: (s) => s.structureType == STRUCTURE_WALL });
 				for (let perc = 0.0001; perc <= 1; perc += 0.0001) {
 					for (let wall of walls) {
-						if (wall.hits / wall.hitsMax < perc) {
+						if ((wall.hits / wall.hitsMax) < perc) {
 							structure = wall;
 						}
 						else { break; }
@@ -32,12 +32,12 @@ export class RoleRepairer {
 
 					if (structure != undefined) { break; }
 				}
-				structure = this.creep.pos.findClosestByPath(FIND_STRUCTURES, { filter: (s) => ( (s.hits / s.hitsMax) <= 0.75) && s.structureType != STRUCTURE_WALL } );
+				//structure = this.creep.pos.findClosestByPath(FIND_STRUCTURES, { filter: (s) => ( (s.hits / s.hitsMax) <= 0.75) && s.structureType == STRUCTURE_WALL } );
 			}
 			else {
-				structure = this.creep.pos.findClosestByPath(FIND_STRUCTURES, { filter: (s) => ( (s.hits / s.hitsMax) <= 0.75) && s.structureType == STRUCTURE_WALL } );
+				structure = this.creep.pos.findClosestByPath(FIND_STRUCTURES, { filter: (s) => ( (s.hits / s.hitsMax) <= 0.75) && s.structureType != STRUCTURE_WALL } );
 			}
-			if (structure) {
+			if (structure != undefined) {
 				if (this.creep.repair(structure) == ERR_NOT_IN_RANGE) {
 					this.creep.moveTo(structure);
 				}
@@ -49,7 +49,7 @@ export class RoleRepairer {
 		else {
 			let container = this.creep.pos.findClosestByPath(FIND_STRUCTURES, { filter: (s) => s.structureType == STRUCTURE_CONTAINER && s.store[RESOURCE_ENERGY] > 0 });
 
-			if (container) {
+			if (container != undefined) {
 				if (this.creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 					this.creep.moveTo(container);
 				}

@@ -1,5 +1,5 @@
 // Roles
-export const ROLE_ARCHITECT: string = "architect"; // Taking resources from Tombstones, Ruins, Graves, etc. TODO better name
+export const ROLE_ARCHITECT: string = "architect"; // Taking resources from Tombstones, Ruins, Graves, etc. TODO better name (?)
 export const ROLE_BUILDER: string = "builder";
 export const ROLE_CARRIER: string = "carrier";
 export const ROLE_HARVESTER: string = "harvester";
