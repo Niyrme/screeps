@@ -1,5 +1,6 @@
-import { ROLES_ALL, SPAWN_CONSTANTS, CREEP_MEMORY } from "Config/Constants";
+import { ROLES_ALL, SPAWN_CONSTANTS } from "Config/Constants";
 import * as T from "Config/Templates/Templates";
+import * as S from "Structures/StructureExports";
 
 export class CreepFactory {
 
@@ -28,7 +29,7 @@ export class CreepFactory {
 						}
 					}
 
-					if (countHarvesters < spawnMemory.minHarvesters!) {
+					/*if (countHarvesters < spawnMemory.minHarvesters!) {
 						this.spawnTemplate(energy, roomName, spawnName, T.TEMPLATE_CREEP_HARVESTER);
 					}
 					else if ((_.filter(creepsInRoom, (c) => (c.memory.role == ROLES_ALL.ROLE_UPGRADER) && ((c.memory.mode == undefined) || (c.memory.target == undefined))).length) < spawnMemory.minUpgraders!) {
@@ -48,8 +49,17 @@ export class CreepFactory {
 					}
 					else if ((_.filter(creepsInRoom, (c) => (c.memory.role == ROLES_ALL.ROLE_REPAIRER) && (c.memory.mode == CREEP_MEMORY.MODE_REPAIR_WALLS)))) {
 						this.spawnTemplate(energy, roomName, spawnName, T.TEMPLATE_CREEP_WALL_REPAIRER);
+					} */
+
+					for (let template of T.TEMPLATE_CREEPS) {
+						let count: number = _.filter(creepsInRoom, (c) => (c.memory.role == template.role) && (c.memory.mode == undefined)).length;
+
+						if (count < new S.GetMin(spawnName, template.role).getMin()) {
+							this.spawnTemplate(energy, roomName, spawnName, template);
+						}
 					}
-					else if (spawnMemory.reserveRoom) {
+
+					if (spawnMemory.reserveRoom) {
 						if (this.spawnTemplate(energy, roomName, spawnName, T.TEMPLATE_CREEP_RESERVER, undefined, Game.spawns[spawnName].memory.reserveRoom) == OK) {
 							delete Game.spawns[spawnName].memory.reserveRoom;
 						}
@@ -59,15 +69,6 @@ export class CreepFactory {
 							delete Game.spawns[spawnName].memory.claimRoom;
 						}
 					}
-
-					/* NOTE not actually working that good with current setup (haveing modes for normal and wall repairing, claiming adn reserveing, etc.)
-					for (let template of T.TEMPLATE_CREEPS) {
-						let count: number = _.filter(creepsInRoom, (c) => (c.memory.role == template.role) && (c.memory.mode == undefined)).length;
-
-						if (count < new S.GetMin(spawnName, template.role).getMin()) {
-							this.spawnTemplate(energy, roomName, spawnName, template);
-						}
-					} */
 				}
 				else {
 					console.log(`MISSING PROPERTY IN SPAWN ${spawnName} IN ROOM ${roomName}`);
@@ -79,7 +80,6 @@ export class CreepFactory {
 	private static spawnTemplate(energy: number, roomName: string, spawnName: string, template: TemplateCreep, sourceID?: string, target?: string) {
 		let creepBody: BodyPartConstant[] = [];
 		let creepName: string = `${template.role} | ${template.name} - (${roomName} | ${spawnName} | ${Game.time % 1650}) - ${Memory.randomData.player}`;
-		let partsNumber: number = Math.floor(energy / 200);
 
 		let memory: CreepMemory = {
 			role: template.role,
@@ -90,6 +90,10 @@ export class CreepFactory {
 		}
 
 		if (template.bodyType == SPAWN_CONSTANTS.MODE_MULTI) {
+			let partsNumber: number = Math.floor(energy / 200);
+			if (partsNumber * template.body.length > MAX_CREEP_SIZE) {
+				partsNumber = Math.floor(MAX_CREEP_SIZE / template.body.length);
+			}
 			for (let bodyPart in template.body) {
 				for (let i = 0; i < partsNumber; i++) {
 					creepBody.push(template.body[bodyPart]);
