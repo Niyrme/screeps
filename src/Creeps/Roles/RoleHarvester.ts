@@ -43,6 +43,9 @@ export class RoleHarvester {
 						}
 					}
 				}
+				else {
+					this.creep.memory.target = undefined;
+				}
 			}
 			else {
 				let source = this.creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE) as Source | undefined | null;

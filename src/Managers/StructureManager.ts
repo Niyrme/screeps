@@ -4,7 +4,9 @@ export class StructureManager {
 	static manageStructures() {
 		for (let spawnName in Game.spawns) {
 			for (let structure in Game.structures) {
-				if (Game.structures[structure].structureType == STRUCTURE_TOWER) { this.manageTowers(Game.structures[structure] as StructureTower, Game.spawns[spawnName]); }
+				if (Game.structures[structure].structureType == STRUCTURE_TOWER) {
+					this.manageTowers(Game.structures[structure] as StructureTower, Game.spawns[spawnName]);
+				}
 			}
 		}
 	}

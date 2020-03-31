@@ -37,6 +37,9 @@ export class RoleBuilder {
 						}
 					}
 				}
+				else {
+					this.creep.memory.target = undefined;
+				}
 			}
 			else {
 				let storageStructure = this.creep.pos.findClosestByPath(FIND_STRUCTURES, { filter: s => (
