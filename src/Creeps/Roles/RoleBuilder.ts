@@ -51,10 +51,12 @@ export class RoleBuilder {
 					}
 				}
 				else {
-					var source= this.creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE) as Source | undefined | null;
+					var source = this.creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE) as Source | undefined | null;
 					if (source) {
 						if (this.creep.harvest(source) == ERR_NOT_IN_RANGE) {
-							this.creep.moveTo(source);
+							if (this.creep.moveTo(source) == ERR_NO_PATH || this.creep.moveTo(source) == ERR_INVALID_TARGET) {
+								this.creep.memory.isWorking = true;
+							}
 						}
 					}
 				}

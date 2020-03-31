@@ -1,5 +1,3 @@
-import { CREEP_MEMORY } from "Config/Constants";
-
 import { RoleHarvester } from "Creeps/Roles/RoleHarvester";
 
 export class RoleRepairer {
@@ -19,24 +17,8 @@ export class RoleRepairer {
 		}
 
 		if (this.creep.memory.isWorking) {
-			let structure = undefined;
-			if (this.creep.memory.mode == CREEP_MEMORY.MODE_REPAIR_WALLS) {
-				let walls = this.creep.room.find(FIND_STRUCTURES, { filter: (s) => s.structureType == STRUCTURE_WALL });
-				for (let perc = 0.0001; perc <= 1; perc += 0.0001) {
-					for (let wall of walls) {
-						if ((wall.hits / wall.hitsMax) < perc) {
-							structure = wall;
-						}
-						else { break; }
-					}
+			let structure = this.creep.pos.findClosestByPath(FIND_STRUCTURES, { filter: (s) => ( (s.hits / s.hitsMax) <= 0.75) && s.structureType != STRUCTURE_WALL } );
 
-					if (structure != undefined) { break; }
-				}
-				//structure = this.creep.pos.findClosestByPath(FIND_STRUCTURES, { filter: (s) => ( (s.hits / s.hitsMax) <= 0.75) && s.structureType == STRUCTURE_WALL } );
-			}
-			else {
-				structure = this.creep.pos.findClosestByPath(FIND_STRUCTURES, { filter: (s) => ( (s.hits / s.hitsMax) <= 0.75) && s.structureType != STRUCTURE_WALL } );
-			}
 			if (structure != undefined) {
 				if (this.creep.repair(structure) == ERR_NOT_IN_RANGE) {
 					this.creep.moveTo(structure);
@@ -58,7 +40,9 @@ export class RoleRepairer {
 				var source = this.creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE) as Source | undefined | null;
 				if (source) {
 					if (this.creep.harvest(source) == ERR_NOT_IN_RANGE) {
-						this.creep.moveTo(source);
+						if (this.creep.moveTo(source) == ERR_NO_PATH || this.creep.moveTo(source) == ERR_INVALID_TARGET) {
+							this.creep.memory.isWorking = true;
+						}
 					}
 				}
 			}
