@@ -55,9 +55,8 @@ export const TEMPLATE_CREEP_WALL_REPAIRER: TemplateCreep = {
 	name: "WallRepairer",
 	bodyType: SPAWN_CONSTANTS.MODE_MULTI,
 	body: TEMPLATE_BODY_DEFAULT,
-	role: ROLES_ALL.ROLE_REPAIRER,
-	mode: CREEP_MEMORY.MODE_REPAIR_WALLS,
-	creepClass: R.RoleRepairer,
+	role: ROLES_ALL.ROLE_WALL_REPAIRER,
+	creepClass: R.RoleWallRepairer,
 };
 
 export const TEMPLATE_CREEP_CLAIMER: TemplateCreep = {

@@ -30,11 +30,11 @@ export class GetMin {
 			case ROLES_ALL.ROLE_REPAIRER:
 				min = this.spawnMem.minRepairers!;
 				break;
-			case ROLES_ALL.ROLE_REPAIRER:
-				min = this.spawnMem.minWallRepairers!;
-				break;
 			case ROLES_ALL.ROLE_UPGRADER:
 				min = this.spawnMem.minUpgraders!;
+				break;
+			case ROLES_ALL.ROLE_WALL_REPAIRER:
+				min = this.spawnMem.minWallRepairers!;
 				break;
 
 			default:

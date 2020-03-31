@@ -8,6 +8,7 @@ export const ROLE_REPAIRER: string = "repairer";
 export const ROLE_SCOUT: string = "scout";
 export const ROLE_ROAMER: string = "roamer"; // Claimer and Reserver
 export const ROLE_UPGRADER: string = "upgrader";
+export const ROLE_WALL_REPAIRER: string = "wallRepairer";
 
 // All roles sorted by spawn priority (not that it matters atm)
 export enum ROLES_ALL {
@@ -20,12 +21,12 @@ export enum ROLES_ALL {
 	ROLE_ARCHITECT = "architect",
 	ROLE_ROAMER = "roamer",
 	ROLE_SCOUT = "scout",
+	ROLE_WALL_REPAIRER = "wallRepairer",
 };
 
 export enum CREEP_MEMORY {
 	MODE_CLAIM = "claim",
 	MODE_RESERVE = "reserve",
-	MODE_REPAIR_WALLS = "repairWalls",
 };
 
 export enum SPAWN_CONSTANTS {
@@ -43,4 +44,5 @@ export const ROLES = [
 	ROLE_ARCHITECT,
 	ROLE_ROAMER,
 	ROLE_SCOUT,
+	ROLE_WALL_REPAIRER,
 ];

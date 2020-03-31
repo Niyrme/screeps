@@ -7,3 +7,4 @@ export * from "Creeps/Roles/RoleRepairer";
 export * from "Creeps/Roles/RoleRoamer";
 export * from "Creeps/Roles/RoleScout";
 export * from "Creeps/Roles/RoleUpgrader";
+export * from "Creeps/Roles/RoleWallRepairer";
