@@ -17,6 +17,8 @@ interface SpawnMemory {
 	towersRepairWalls?: boolean;
 
 	doDBG?: boolean;
+
+	creepMaxParts?: number;
 }
 
 interface CreepMemory {

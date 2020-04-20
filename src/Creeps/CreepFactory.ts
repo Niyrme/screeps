@@ -29,28 +29,6 @@ export class CreepFactory {
 						}
 					}
 
-					/*if (countHarvesters < spawnMemory.minHarvesters!) {
-						this.spawnTemplate(energy, roomName, spawnName, T.TEMPLATE_CREEP_HARVESTER);
-					}
-					else if ((_.filter(creepsInRoom, (c) => (c.memory.role == ROLES_ALL.ROLE_UPGRADER) && ((c.memory.mode == undefined) || (c.memory.target == undefined))).length) < spawnMemory.minUpgraders!) {
-						this.spawnTemplate(energy, roomName, spawnName, T.TEMPLATE_CREEP_UPGRADER);
-					}
-					else if ((_.filter(creepsInRoom, (c) => (c.memory.role == ROLES_ALL.ROLE_CARRIER) && ((c.memory.mode == undefined) || (c.memory.target == undefined))).length) < spawnMemory.minCarriers!) {
-						this.spawnTemplate(energy, roomName, spawnName, T.TEMPLATE_CREEP_CARRIER);
-					}
-					else if ((_.filter(creepsInRoom, (c) => (c.memory.role == ROLES_ALL.ROLE_REPAIRER) && ((c.memory.mode == undefined) || (c.memory.target == undefined))).length) < spawnMemory.minRepairers!) {
-						this.spawnTemplate(energy, roomName, spawnName, T.TEMPLATE_CREEP_REPAIRER);
-					}
-					else if ((_.filter(creepsInRoom, (c) => (c.memory.role == ROLES_ALL.ROLE_BUILDER) && ((c.memory.mode == undefined) || (c.memory.target == undefined))).length) < spawnMemory.minBuilders!) {
-						this.spawnTemplate(energy, roomName, spawnName, T.TEMPLATE_CREEP_BUILDER);
-					}
-					else if ((_.filter(creepsInRoom, (c) => (c.memory.role == ROLES_ALL.ROLE_ARCHITECT) && ((c.memory.mode == undefined) || (c.memory.target == undefined))).length) < spawnMemory.minArchitects!) {
-						this.spawnTemplate(energy, roomName, spawnName, T.TEMPLATE_CREEP_ARCHITECT);
-					}
-					else if ((_.filter(creepsInRoom, (c) => (c.memory.role == ROLES_ALL.ROLE_REPAIRER) && (c.memory.mode == CREEP_MEMORY.MODE_REPAIR_WALLS)))) {
-						this.spawnTemplate(energy, roomName, spawnName, T.TEMPLATE_CREEP_WALL_REPAIRER);
-					} */
-
 					for (let template of T.TEMPLATE_CREEPS) {
 						let count: number = _.filter(creepsInRoom, (c) => (c.memory.role == template.role) && (c.memory.mode == undefined)).length;
 
@@ -79,7 +57,8 @@ export class CreepFactory {
 
 	private static spawnTemplate(energy: number, roomName: string, spawnName: string, template: TemplateCreep, sourceID?: string, target?: string) {
 		let creepBody: BodyPartConstant[] = [];
-		let creepName: string = `${template.role} | ${template.name} - (${roomName} | ${spawnName} | ${Game.time % 1650}) - ${Memory.randomData.player}`;
+		let creepName: string = `${template.name} - (${roomName} | ${spawnName} | ${Game.time % 1650}) - ${Memory.randomData.player}`;
+		let creepMaxSize: number = MAX_CREEP_SIZE;
 
 		let memory: CreepMemory = {
 			role: template.role,
@@ -91,8 +70,13 @@ export class CreepFactory {
 
 		if (template.bodyType == SPAWN_CONSTANTS.MODE_MULTI) {
 			let partsNumber: number = Math.floor(energy / 200);
-			if (partsNumber * template.body.length > MAX_CREEP_SIZE) {
-				partsNumber = Math.floor(MAX_CREEP_SIZE / template.body.length);
+
+			if (Game.spawns[spawnName].memory.creepMaxParts != undefined) {
+				creepMaxSize = Game.spawns[spawnName].memory.creepMaxParts!;
+			}
+
+			if (partsNumber * template.body.length > creepMaxSize) {
+				partsNumber = Math.floor(creepMaxSize / template.body.length);
 			}
 			for (let bodyPart in template.body) {
 				for (let i = 0; i < partsNumber; i++) {
