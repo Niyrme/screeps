@@ -60,13 +60,6 @@ export class CreepFactory {
 		let creepName: string = `${template.name} - (${spawn.room.name} | ${spawn.name} | ${Game.time % 1650}) - ${Memory.randomData.player}`;
 		let creepMaxSize: number = MAX_CREEP_SIZE;
 
-		let memory: CreepMemory = {
-			role: template.role,
-			isWorking: false,
-			mode: template.mode,
-			sourceID: sourceID,
-			target: target
-		}
 		if (template.bodyType == SPAWN_CONSTANTS.MODE_MULTI) {
 			let partsNumber: number = Math.floor(energy / 200);
 
@@ -87,6 +80,12 @@ export class CreepFactory {
 			creepBody = template.body;
 		}
 
-		return Game.spawns[spawnName].spawnCreep(creepBody, creepName, { memory });
+		return spawn.spawnCreep(creepBody, creepName, {memory: {
+			role: template.role,
+			isWorking: false,
+			mode: template.mode,
+			sourceID: sourceID,
+			target: target
+		}});
 	}
 }
