@@ -1,6 +1,6 @@
 import { CreepFactory } from "Creeps/CreepFactory";
 
-import { TEMPLATE_CREEPS } from "Config/Templates/Templates";
+import { TEMPLATE_CREEPS } from "Config/Templates/CreepTemplates";
 
 export class CreepManager {
 

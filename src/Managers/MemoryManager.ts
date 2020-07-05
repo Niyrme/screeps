@@ -1,5 +1,5 @@
-import * as S from "Structures/StructureExports";
-import { TEMPLATE_CREEPS } from "Config/Templates/Templates";
+import { getMin } from "Structures/cStructureSpawn"
+import { TEMPLATE_CREEPS } from "Config/Templates/CreepTemplates";
 
 export class MemoryManager {
 	static manageMemory() {
@@ -31,8 +31,8 @@ Your current Global Power Level is ${Game.gpl.level}
 					for (let template of TEMPLATE_CREEPS) {
 						let count: number = _.filter(Game.spawns[spawnName].room.find(FIND_MY_CREEPS), (c) => c.memory.role == template.role).length;
 
-						if (count < new S.GetMin(spawnName, template.role).getMin()) {
-							report += `\nRoom: ${Game.spawns[spawnName].room.name} | Spawn: ${spawnName} | Missing ${new S.GetMin(spawnName, template.role).getMin() - count} creep(s) of role ${template.role}`;
+						if (count < getMin(Game.spawns[spawnName], template.role)) {
+							report += `\nRoom: ${Game.spawns[spawnName].room.name} | Spawn: ${spawnName} | Missing ${getMin(Game.spawns[spawnName], template.role) - count} creep(s) of role ${template.role}`;
 						}
 					}
 				}

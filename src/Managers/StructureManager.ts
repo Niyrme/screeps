@@ -1,4 +1,8 @@
-import { cStructureTower } from "Structures/StructureExports";
+import {
+	rebuild,
+	defend,
+	support
+} from "Structures/cStructureTower";
 
 export class StructureManager {
 	static manageStructures() {
@@ -15,12 +19,12 @@ export class StructureManager {
 		let enemyCreeps: Creep[] | undefined = tower.room.find(FIND_HOSTILE_CREEPS);
 
 		if (enemyCreeps.length > 0) {
-			cStructureTower.defend(tower);
+			defend(tower);
 		}
 		else {
-			cStructureTower.support(tower);
+			support(tower);
 			if (spawn.memory.towersRepair && (tower.store[RESOURCE_ENERGY] >= tower.store.getCapacity(RESOURCE_ENERGY) / 2)) {
-				cStructureTower.rebuild(tower, spawn.memory.towersRepairWalls);
+				rebuild(tower, spawn.memory.towersRepairWalls);
 			}
 		}
 	}

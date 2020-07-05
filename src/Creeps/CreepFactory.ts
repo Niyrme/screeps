@@ -1,6 +1,6 @@
 import { ROLES_ALL, SPAWN_CONSTANTS } from "Config/Constants";
-import * as T from "Config/Templates/Templates";
-import * as S from "Structures/StructureExports";
+import { getMin } from "Structures/cStructureSpawn"
+import * as T from "Config/Templates/CreepTemplates";
 
 export class CreepFactory {
 
@@ -32,7 +32,7 @@ export class CreepFactory {
 					for (let template of T.TEMPLATE_CREEPS) {
 						let count: number = _.filter(creepsInRoom, (c) => (c.memory.role == template.role) && (c.memory.mode == undefined)).length;
 
-						if (count < new S.GetMin(spawnName, template.role).getMin()) {
+						if (count < getMin(Game.spawns[spawnName], template.role)) {
 							this.spawnTemplate(energy, spawn, template);
 						}
 					}
