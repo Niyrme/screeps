@@ -1,5 +1,7 @@
 import { getMin } from "Structures/cStructureSpawn"
-import { TEMPLATE_CREEPS } from "Config/Templates/CreepTemplates";
+import {
+	TEMPLATE_CREEPS as Templates
+} from "Config/Templates/CreepTemplates";
 
 export class MemoryManager {
 	static manageMemory() {
@@ -28,7 +30,7 @@ Your current Global Power Level is ${Game.gpl.level}
 
 					report += `\n`;
 
-					for (let template of TEMPLATE_CREEPS) {
+					for (let template of Templates) {
 						let count: number = _.filter(Game.spawns[spawnName].room.find(FIND_MY_CREEPS), (c) => c.memory.role == template.role).length;
 
 						if (count < getMin(Game.spawns[spawnName], template.role)) {

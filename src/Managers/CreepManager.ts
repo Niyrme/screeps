@@ -1,6 +1,8 @@
 import { CreepFactory } from "Creeps/CreepFactory";
 
-import { TEMPLATE_CREEPS } from "Config/Templates/CreepTemplates";
+import {
+	TEMPLATE_CREEPS as Templates
+} from "Config/Templates/CreepTemplates";
 
 export class CreepManager {
 
@@ -14,9 +16,9 @@ export class CreepManager {
 			let creepName = Game.creeps[creep].name;
 			let creepRole = Game.creeps[creep].memory.role;
 
-			for (let template in TEMPLATE_CREEPS) {
-				if (creepRole == TEMPLATE_CREEPS[template].role) {
-					new TEMPLATE_CREEPS[template].creepClass(creepName).runCreep();
+			for (let template in Templates) {
+				if (creepRole == Templates[template].role) {
+					new Templates[template].creepClass(creepName).runCreep();
 				}
 			}
 		}

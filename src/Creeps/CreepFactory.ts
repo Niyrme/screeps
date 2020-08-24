@@ -1,6 +1,9 @@
-import { ROLES_ALL, SPAWN_CONSTANTS } from "Config/Constants";
+import {
+	ROLES_ALL as Roles,
+	SPAWN_CONSTANTS
+} from "Config/Constants";
 import { getMin } from "Structures/cStructureSpawn"
-import * as T from "Config/Templates/CreepTemplates";
+import * as Template from "Config/Templates/CreepTemplates";
 
 export class CreepFactory {
 
@@ -20,16 +23,16 @@ export class CreepFactory {
 					&& spawn.memory.minBuilders !== undefined
 					&& spawn.memory.minArchitects !== undefined) {
 
-					let countHarvesters = _.filter(creepsInRoom, (c) => (c.memory.role == ROLES_ALL.ROLE_HARVESTER) && ((c.memory.mode == undefined) || (c.memory.target == undefined))).length;
-					let countMiners = _.filter(creepsInRoom, (c) => (c.memory.role == ROLES_ALL.ROLE_MINER)).length;
+					let countHarvesters = _.filter(creepsInRoom, (c) => (c.memory.role == Roles.ROLE_HARVESTER) && ((c.memory.mode == undefined) || (c.memory.target == undefined))).length;
+					let countMiners = _.filter(creepsInRoom, (c) => (c.memory.role == Roles.ROLE_MINER)).length;
 
 					if ((creepsInRoom.length == 0) || (countHarvesters == 0 && countMiners == 0)) {
-						if(this.spawnTemplate(spawn.room.energyAvailable, spawn, T.TEMPLATE_CREEP_HARVESTER) == OK) {
+						if(this.spawnTemplate(spawn.room.energyAvailable, spawn, Template.TEMPLATE_CREEP_HARVESTER) == OK) {
 							console.log("SPAWNING EMERGENCY HARVESTER!");
 						}
 					}
 
-					for (let template of T.TEMPLATE_CREEPS) {
+					for (let template of Template.TEMPLATE_CREEPS) {
 						let count: number = _.filter(creepsInRoom, (c) => (c.memory.role == template.role) && (c.memory.mode == undefined)).length;
 
 						if (count < getMin(Game.spawns[spawnName], template.role)) {
@@ -38,12 +41,12 @@ export class CreepFactory {
 					}
 
 					if (spawnMemory.reserveRoom) {
-						if (this.spawnTemplate(energy, spawn, T.TEMPLATE_CREEP_RESERVER, undefined, spawn.memory.reserveRoom) == OK) {
+						if (this.spawnTemplate(energy, spawn, Template.TEMPLATE_CREEP_RESERVER, undefined, spawn.memory.reserveRoom) == OK) {
 							delete spawn.memory.reserveRoom;
 						}
 					}
 					else if (spawnMemory.claimRoom) {
-						if (this.spawnTemplate(energy, spawn, T.TEMPLATE_CREEP_CLAIMER, undefined, spawn.memory.claimRoom) == OK) {
+						if (this.spawnTemplate(energy, spawn, Template.TEMPLATE_CREEP_CLAIMER, undefined, spawn.memory.claimRoom) == OK) {
 							delete spawn.memory.claimRoom;
 						}
 					}
