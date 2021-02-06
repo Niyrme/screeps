@@ -20,12 +20,11 @@ export class RoleWallRepairer {
 			let structure = undefined;
 			let walls = this.creep.room.find(FIND_STRUCTURES, { filter: (s) => s.structureType == STRUCTURE_WALL });
 			for (let perc = 0.0001; perc <= 1; perc += 0.0001) {
-				for (let wall of walls) {
+				walls.forEach(wall => {
 					if ((wall.hits / wall.hitsMax) < perc) {
 						structure = wall;
 					}
-					else { break; }
-				}
+				});
 
 				if (structure != undefined) { break; }
 			}

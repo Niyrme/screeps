@@ -3,7 +3,7 @@ import {
 	CREEP_MEMORY,
 	SPAWN_CONSTANTS
 } from "Config/Constants";
-import * as R from "Creeps/Roles/RolesExports";
+import * as R from "Creeps/Roles/Exports";
 
 const TEMPLATE_BODY_DEFAULT = [WORK, CARRY, MOVE]; // Cost: 200x
 

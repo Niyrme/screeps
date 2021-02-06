@@ -2,7 +2,7 @@ import {
 	ROLES_ALL as Roles,
 	SPAWN_CONSTANTS
 } from "Config/Constants";
-import { getMin } from "Structures/cStructureSpawn"
+import { getMin } from "Structures/Exports";
 import * as Template from "Config/Templates/CreepTemplates";
 
 export class CreepFactory {
@@ -32,13 +32,13 @@ export class CreepFactory {
 						}
 					}
 
-					for (let template of Template.TEMPLATE_CREEPS) {
+					Template.TEMPLATE_CREEPS.forEach(template => {
 						let count: number = _.filter(creepsInRoom, (c) => (c.memory.role == template.role) && (c.memory.mode == undefined)).length;
 
 						if (count < getMin(Game.spawns[spawnName], template.role)) {
 							this.spawnTemplate(energy, spawn, template);
 						}
-					}
+					});
 
 					if (spawnMemory.reserveRoom) {
 						if (this.spawnTemplate(energy, spawn, Template.TEMPLATE_CREEP_RESERVER, undefined, spawn.memory.reserveRoom) == OK) {
@@ -73,11 +73,11 @@ export class CreepFactory {
 			if (partsNumber * template.body.length > creepMaxSize) {
 				partsNumber = Math.floor(creepMaxSize / template.body.length);
 			}
-			for (let bodyPart in template.body) {
-				for (let i = 0; i < partsNumber; i++) {
-					creepBody.push(template.body[bodyPart]);
+			template.body.forEach(part => {
+				for (let i=0;i<partsNumber;i++) {
+					creepBody.push(part);
 				}
-			}
+			});
 		}
 		else if (template.bodyType == SPAWN_CONSTANTS.MODE_SINGLE) {
 			creepBody = template.body;
