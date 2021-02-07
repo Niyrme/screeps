@@ -1,8 +1,8 @@
 import { Manager } from "Managers/Manager";
-import { ManagerCreeps } from "./CreepManager";
-import { ManagerMemory } from "./MemoryManager";
-import { ManagerRooms } from "./RoomManager";
-import { ManagerStructures } from "./StructureManager";
+import { ManagerCreeps } from "Managers/CreepManager";
+import { ManagerMemory } from "Managers/MemoryManager";
+import { ManagerRooms } from "Managers/RoomManager";
+import { ManagerStructures } from "Managers/StructureManager";
 
 export const MANAGERS: Array<Manager> = [
 	new ManagerCreeps,
