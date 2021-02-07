@@ -5,7 +5,6 @@ const ROLE_CARRIER: string = "carrier";
 const ROLE_HARVESTER: string = "harvester";
 const ROLE_MINER: string = "miner";
 const ROLE_REPAIRER: string = "repairer";
-const ROLE_SCOUT: string = "scout";
 const ROLE_ROAMER: string = "roamer"; // Claimer and Reserver
 const ROLE_UPGRADER: string = "upgrader";
 const ROLE_WALL_REPAIRER: string = "wallRepairer";
@@ -20,7 +19,6 @@ enum ROLES_ALL {
 	ROLE_BUILDER = "builder",
 	ROLE_ARCHITECT = "architect",
 	ROLE_ROAMER = "roamer",
-	ROLE_SCOUT = "scout",
 	ROLE_WALL_REPAIRER = "wallRepairer",
 };
 
@@ -43,7 +41,6 @@ const ROLES: Array<string> = [
 	ROLE_BUILDER,
 	ROLE_ARCHITECT,
 	ROLE_ROAMER,
-	ROLE_SCOUT,
 	ROLE_WALL_REPAIRER,
 ];
 
@@ -54,7 +51,6 @@ export {
 	ROLE_HARVESTER,
 	ROLE_MINER,
 	ROLE_REPAIRER,
-	ROLE_SCOUT,
 	ROLE_ROAMER,
 	ROLE_UPGRADER,
 	ROLE_WALL_REPAIRER
