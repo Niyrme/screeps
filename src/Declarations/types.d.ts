@@ -26,7 +26,7 @@ interface RoomMemory {
 
 interface MemoryMin {
 	name: string;
-	count?: number;
+	count: number;
 }
 
 interface Memory {

@@ -15,11 +15,6 @@ export class CreepFactory {
 		// User owns this room
 		let energy: number = this.room.energyCapacityAvailable;
 		let creepsInRoom: Array<Creep> = this.room.find(FIND_MY_CREEPS);
-		this.room.memory.mins.forEach(m => {
-			if(m.count !== undefined) {
-				console.log(`Property ${m.name} missing in memory of room ${this.room.name}!`);
-			}
-		});
 
 		let countHarvesters = _.filter(creepsInRoom, (c) => (c.memory.role == Roles.ROLE_HARVESTER) && ((c.memory.mode == undefined) || (c.memory.target == undefined))).length;
 		let countMiners = _.filter(creepsInRoom, (c) => (c.memory.role == Roles.ROLE_MINER)).length;
@@ -35,7 +30,7 @@ export class CreepFactory {
 
 			this.room.memory.mins.forEach(m => {
 				if (m.name == template.role) {
-					if (count < m.count!) {
+					if (count < m.count) {
 						this.spawnTemplate(energy, template);
 					}
 				}
@@ -57,7 +52,7 @@ export class CreepFactory {
 	private spawnTemplate(energy: number, template: TemplateCreep, sourceID?: string, target?: string) {
 		let creepBody: Array<BodyPartConstant> = [];
 		let spawn: StructureSpawn = _.filter(this.room.find(FIND_MY_SPAWNS), (s) => (s.spawning == null))[0];
-		let creepName: string = `${template.role} - (${this.room.name} | ${spawn.name} | ${Game.time % 1650}) - ${Memory.randomData.player}`;
+		let creepName: string = `${template.role} - ${Memory.randomData.player} (${Game.time % 1650})`;
 		let creepMaxSize: number = MAX_CREEP_SIZE;
 
 		if (template.bodyType == SPAWN_CONSTANTS.MODE_MULTI) {
