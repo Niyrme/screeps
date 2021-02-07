@@ -7,12 +7,15 @@ export class RoleMiner extends Role {
 	}
 
 	runCreep() {
+		if (!this.creep.memory.sourceID) {
+			console.log(`Creep ${this.creep.name} is missing the sourceID property in it's memory!`);
+		}
+		let source: Source | null = Game.getObjectById(this.creep.memory.sourceID!) as Source | null;
 		let container = undefined;
-		let source = Game.getObjectById(`${this.creep.memory.sourceID}`) as Source | undefined | null;
 		if (source) {
 			container = source.pos.findInRange(FIND_STRUCTURES, 1, {
 				filter: s => s.structureType == STRUCTURE_CONTAINER
-			})[0] as StructureContainer | undefined | null;
+			})[0] as StructureContainer | undefined;
 		}
 
 		if (container && source) {

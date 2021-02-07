@@ -12,7 +12,6 @@ export class CreepFactory {
 	}
 
 	public spawnCreeps() {
-		// User owns this room
 		let energy: number = this.room.energyCapacityAvailable;
 		let creepsInRoom: Array<Creep> = this.room.find(FIND_MY_CREEPS);
 
@@ -31,7 +30,18 @@ export class CreepFactory {
 			this.room.memory.mins.forEach(m => {
 				if (m.name == template.role) {
 					if (count < m.count) {
-						this.spawnTemplate(energy, template);
+						if (template.role == Template.TEMPLATE_CREEP_MINER.role) {
+							this.room.find(FIND_SOURCES).forEach(source => {
+								if (!_.some(creepsInRoom, (c) => (c.memory.role == Template.TEMPLATE_CREEP_MINER.role && c.memory.sourceID == source.id))) {
+									if (source.pos.findInRange(FIND_STRUCTURES, 1, { filter: (s) => s.structureType == STRUCTURE_CONTAINER }).length > 0) {
+										this.spawnTemplate(energy, template, source.id);
+									}
+								}
+							});
+						}
+						else {
+							this.spawnTemplate(energy, template);
+						}
 					}
 				}
 			});
@@ -39,17 +49,17 @@ export class CreepFactory {
 
 		if (this.room.memory.reserveRoom) {
 			if (this.spawnTemplate(energy, Template.TEMPLATE_CREEP_RESERVER, undefined, this.room.memory.reserveRoom) == OK) {
-					delete this.room.memory.reserveRoom;
+				delete this.room.memory.reserveRoom;
 			}
 		}
 		else if (this.room.memory.claimRoom) {
-				if (this.spawnTemplate(energy, Template.TEMPLATE_CREEP_CLAIMER, undefined, this.room.memory.claimRoom) == OK) {
-					delete this.room.memory.claimRoom;
-				}
+			if (this.spawnTemplate(energy, Template.TEMPLATE_CREEP_CLAIMER, undefined, this.room.memory.claimRoom) == OK) {
+				delete this.room.memory.claimRoom;
+			}
 		}
 	}
 
-	private spawnTemplate(energy: number, template: TemplateCreep, sourceID?: string, target?: string) {
+	private spawnTemplate(energy: number, template: TemplateCreep, sourceID?: Id<Source>, target?: string) {
 		let creepBody: Array<BodyPartConstant> = [];
 		let spawn: StructureSpawn = _.filter(this.room.find(FIND_MY_SPAWNS), (s) => (s.spawning == null))[0];
 		let creepName: string = `${template.role} - ${Memory.randomData.player} (${Game.time % 1650})`;

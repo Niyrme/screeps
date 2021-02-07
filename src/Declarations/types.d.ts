@@ -8,7 +8,7 @@ interface CreepMemory {
 
 	target?: string;
 	mode?: string;
-	sourceID?: string;
+	sourceID?: Id<Source>;
 	room?: string;
 }
 
