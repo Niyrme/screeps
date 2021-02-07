@@ -1,4 +1,4 @@
-abstract class Role {
+export abstract class Role {
 	protected creep: Creep;
 	constructor(creepName: string) {
 		this.creep = Game.creeps[creepName];

@@ -1,3 +1,4 @@
+import { Manager } from "Managers/Manager";
 import { ManagerCreeps } from "./CreepManager";
 import { ManagerMemory } from "./MemoryManager";
 import { ManagerRooms } from "./RoomManager";

@@ -1,3 +1,5 @@
+import { Role } from "Creeps/Roles/Role";
+
 export class RoleCarrier extends Role {
 
 	constructor(creepName: string) {

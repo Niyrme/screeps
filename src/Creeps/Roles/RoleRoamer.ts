@@ -1,4 +1,5 @@
 import { CREEP_MEMORY } from "Config/Constants";
+import { Role } from "Creeps/Roles/Role";
 
 export class RoleRoamer extends Role {
 

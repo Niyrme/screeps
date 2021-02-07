@@ -1,3 +1,5 @@
+import { Role } from "Creeps/Roles/Role";
+
 export class RoleArchitect extends Role {
 	
 	constructor(creepName: string) {

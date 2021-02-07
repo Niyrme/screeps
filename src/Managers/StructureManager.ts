@@ -1,4 +1,5 @@
 import { cStructureTower } from "Structures/Exports";
+import { Manager } from "Managers/Manager";
 
 export class ManagerStructures extends Manager {
 	manage() {

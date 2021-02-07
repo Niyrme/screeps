@@ -1,4 +1,5 @@
 import { CreepFactory } from "Creeps/CreepFactory";
+import { Manager } from "Managers/Manager";
 
 export class ManagerRooms extends Manager {
 	manage() {

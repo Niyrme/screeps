@@ -1,4 +1,5 @@
 import { RoleHarvester } from "Creeps/Roles/RoleHarvester";
+import { Role } from "Creeps/Roles/Role";
 
 export class RoleRepairer extends Role {
 

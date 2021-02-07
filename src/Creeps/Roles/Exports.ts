@@ -1,3 +1,4 @@
+export * from "Creeps/Roles/Role";
 export * from "Creeps/Roles/RoleArchitect";
 export * from "Creeps/Roles/RoleBuilder";
 export * from "Creeps/Roles/RoleCarrier";

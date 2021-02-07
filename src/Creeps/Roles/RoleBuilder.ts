@@ -1,4 +1,5 @@
 import { RoleUpgrader } from "Creeps/Roles/RoleUpgrader";
+import { Role } from "Creeps/Roles/Role";
 
 export class RoleBuilder extends Role{
 

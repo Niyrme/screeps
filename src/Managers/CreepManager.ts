@@ -1,6 +1,7 @@
 import {
 	TEMPLATE_CREEPS as Templates
 } from "Config/Templates/CreepTemplates";
+import { Manager } from "Managers/Manager";
 
 export class ManagerCreeps extends Manager {
 	manage() {

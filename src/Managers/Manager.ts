@@ -1,3 +1,3 @@
-abstract class Manager {
+export abstract class Manager {
 	abstract manage() : void;
 }

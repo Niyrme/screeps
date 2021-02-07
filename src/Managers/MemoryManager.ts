@@ -1,4 +1,5 @@
 import { TEMPLATE_CREEPS } from "Config/Templates/CreepTemplates";
+import { Manager } from "Managers/Manager";
 
 export class ManagerMemory extends Manager {
 	manage() {
@@ -23,6 +24,9 @@ export class ManagerMemory extends Manager {
 	private checkRoomMemory() {
 		for (let r in Game.rooms) {
 			let roomMemory: RoomMemory = Game.rooms[r].memory;
+			if (!roomMemory.mins) {
+				roomMemory.mins = [];
+			}
 			TEMPLATE_CREEPS.forEach(t => {
 				if (_.filter(roomMemory.mins, (m) => ((m.name) == t.role)).length != 1) {
 					roomMemory.mins.push({
