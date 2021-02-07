@@ -1,13 +1,11 @@
 // NOTE unused
-export class RoleScout {
+export class RoleScout extends Role {
 
-	private creep: Creep;
 	constructor(creepName: string) {
-		this.creep = Game.creeps[creepName];
+		super(creepName)
 	}
 
-	public runCreep() {
-
+	runCreep() {
 		if (this.creep.memory.isWorking) { }
 		else { }
 	}

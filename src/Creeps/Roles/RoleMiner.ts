@@ -1,12 +1,10 @@
-export class RoleMiner {
+export class RoleMiner extends Role {
 
-	private creep: Creep;
 	constructor(creepName: string) {
-		this.creep = Game.creeps[creepName];
+		super(creepName)
 	}
 
-	public runCreep() {
-
+	runCreep() {
 		let container = undefined;
 		let source = Game.getObjectById(`${this.creep.memory.sourceID}`) as Source | undefined | null;
 		if (source) {

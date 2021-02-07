@@ -1,11 +1,10 @@
-export class RoleArchitect {
-
-	private creep: Creep;
+export class RoleArchitect extends Role {
+	
 	constructor(creepName: string) {
-		this.creep = Game.creeps[creepName];
+		super(creepName);
 	}
 
-	public runCreep() {
+	runCreep() {
 		if (this.creep.memory.isWorking && this.creep.store[RESOURCE_ENERGY] == 0) {
 			this.creep.memory.isWorking = false;
 		}

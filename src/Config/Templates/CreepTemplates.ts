@@ -9,7 +9,6 @@ const TEMPLATE_BODY_DEFAULT = [WORK, CARRY, MOVE]; // Cost: 200x
 
 // Creep templates
 const TEMPLATE_CREEP_ARCHITECT: TemplateCreep = {
-	name: "Architect",
 	bodyType: SPAWN_CONSTANTS.MODE_MULTI,
 	body: [CARRY, MOVE], // Cost: 150x
 	role: Roles.ROLE_ARCHITECT,
@@ -17,7 +16,6 @@ const TEMPLATE_CREEP_ARCHITECT: TemplateCreep = {
 };
 
 const TEMPLATE_CREEP_BUILDER: TemplateCreep = {
-	name: "Builder",
 	bodyType: SPAWN_CONSTANTS.MODE_MULTI,
 	body: TEMPLATE_BODY_DEFAULT,
 	role: Roles.ROLE_BUILDER,
@@ -25,7 +23,6 @@ const TEMPLATE_CREEP_BUILDER: TemplateCreep = {
 };
 
 const TEMPLATE_CREEP_CARRIER: TemplateCreep = {
-	name: "Carrier",
 	bodyType: SPAWN_CONSTANTS.MODE_MULTI,
 	body: TEMPLATE_BODY_DEFAULT,
 	role: Roles.ROLE_CARRIER,
@@ -33,7 +30,6 @@ const TEMPLATE_CREEP_CARRIER: TemplateCreep = {
 };
 
 const TEMPLATE_CREEP_HARVESTER: TemplateCreep = {
-	name: "Harvester",
 	bodyType: SPAWN_CONSTANTS.MODE_MULTI,
 	body: TEMPLATE_BODY_DEFAULT,
 	role: Roles.ROLE_HARVESTER,
@@ -41,7 +37,6 @@ const TEMPLATE_CREEP_HARVESTER: TemplateCreep = {
 };
 
 const TEMPLATE_CREEP_MINER: TemplateCreep = {
-	name: "Miner",
 	bodyType: SPAWN_CONSTANTS.MODE_SINGLE,
 	body: [WORK, WORK, WORK, WORK, WORK, MOVE, MOVE], // Cost: 600
 	role: Roles.ROLE_MINER,
@@ -49,14 +44,12 @@ const TEMPLATE_CREEP_MINER: TemplateCreep = {
 };
 
 const TEMPLATE_CREEP_REPAIRER: TemplateCreep = {
-	name: "Repairer",
 	bodyType: SPAWN_CONSTANTS.MODE_MULTI,
 	body: TEMPLATE_BODY_DEFAULT,
 	role: Roles.ROLE_REPAIRER,
 	creepClass: R.RoleRepairer,
 };
 const TEMPLATE_CREEP_WALL_REPAIRER: TemplateCreep = {
-	name: "WallRepairer",
 	bodyType: SPAWN_CONSTANTS.MODE_MULTI,
 	body: TEMPLATE_BODY_DEFAULT,
 	role: Roles.ROLE_WALL_REPAIRER,
@@ -64,7 +57,6 @@ const TEMPLATE_CREEP_WALL_REPAIRER: TemplateCreep = {
 };
 
 const TEMPLATE_CREEP_CLAIMER: TemplateCreep = {
-	name: "Claimer",
 	bodyType: SPAWN_CONSTANTS.MODE_SINGLE,
 	body: [CLAIM, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], // Cost: 1000
 	role: Roles.ROLE_ROAMER,
@@ -72,7 +64,6 @@ const TEMPLATE_CREEP_CLAIMER: TemplateCreep = {
 	creepClass: R.RoleRoamer,
 };
 const TEMPLATE_CREEP_RESERVER: TemplateCreep = {
-	name: "Reserver",
 	bodyType: SPAWN_CONSTANTS.MODE_SINGLE,
 	body: [CLAIM, CLAIM, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], // Cost: 1500
 	role: Roles.ROLE_ROAMER,
@@ -81,7 +72,6 @@ const TEMPLATE_CREEP_RESERVER: TemplateCreep = {
 };
 
 const TEMPLATE_CREEP_SCOUT: TemplateCreep = {
-	name: "Scout",
 	bodyType: SPAWN_CONSTANTS.MODE_SINGLE,
 	body: [MOVE, MOVE, MOVE, MOVE, MOVE], // Cost: 250
 	role: Roles.ROLE_SCOUT,
@@ -89,7 +79,6 @@ const TEMPLATE_CREEP_SCOUT: TemplateCreep = {
 };
 
 const TEMPLATE_CREEP_UPGRADER: TemplateCreep = {
-	name: "Upgrader",
 	bodyType: SPAWN_CONSTANTS.MODE_MULTI,
 	body: TEMPLATE_BODY_DEFAULT,
 	role: Roles.ROLE_UPGRADER,
@@ -97,7 +86,7 @@ const TEMPLATE_CREEP_UPGRADER: TemplateCreep = {
 };
 
 
-const TEMPLATE_CREEPS: TemplateCreep[] = [
+const TEMPLATE_CREEPS: Array<TemplateCreep> = [
 	TEMPLATE_CREEP_ARCHITECT,
 	TEMPLATE_CREEP_BUILDER,
 	TEMPLATE_CREEP_CARRIER,

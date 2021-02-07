@@ -1,24 +1,5 @@
 interface SpawnMemory {
-	minArchitects?: number;
-	minBuilders?: number;
-	minCarriers?: number;
-	minHarvesters?: number;
-	minMiners?: number;
-	minRepairers?: number;
-	minWallRepairers?: number;
-	minUpgraders?: number;
-
 	minerSource?: string;
-
-	claimRoom?: string;
-	reserveRoom?: string;
-
-	towersRepair?: boolean;
-	towersRepairWalls?: boolean;
-
-	doDBG?: boolean;
-
-	creepMaxParts?: number;
 }
 
 interface CreepMemory {
@@ -31,6 +12,23 @@ interface CreepMemory {
 	room?: string;
 }
 
+interface RoomMemory {
+	mins: Array<MemoryMin>;
+
+	creepMaxParts?: number;
+
+	claimRoom?: string;
+	reserveRoom?: string;
+
+	towersRepair?: boolean;
+	towersRepairWalls?: boolean;
+}
+
+interface MemoryMin {
+	name: string;
+	count?: number;
+}
+
 interface Memory {
 	uuid: number;
 	log: any;
@@ -38,7 +36,6 @@ interface Memory {
 }
 
 interface TemplateCreep {
-	name: string;
 	role: string;
 
 	bodyType: string;

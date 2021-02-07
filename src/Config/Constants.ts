@@ -34,7 +34,7 @@ enum SPAWN_CONSTANTS {
 	MODE_MULTI = "multi",
 }
 
-const ROLES = [
+const ROLES: Array<string> = [
 	ROLE_MINER,
 	ROLE_HARVESTER,
 	ROLE_UPGRADER,

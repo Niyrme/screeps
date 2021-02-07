@@ -1,3 +1,5 @@
+import { TEMPLATE_CREEPS } from "Config/Templates/CreepTemplates";
+
 export class ManagerMemory extends Manager {
 	manage() {
 		this.checkMemory();
@@ -5,12 +7,36 @@ export class ManagerMemory extends Manager {
 	}
 
 	private checkMemory() {
+		this.checkGlobalMemory();
+		this.checkRoomMemory();
+	}
+
+	private checkGlobalMemory() {
 		if (!Memory.randomData) {
 			console.log("Missing randomData memory. Creating...");
 			console.log("Please change the player property in Memory.randomData to your username!");
 			Memory.randomData = {
 				player: " ",
 			};
+		}
+	}
+	private checkRoomMemory() {
+		for (let r in Game.rooms) {
+			let roomMemory: RoomMemory = Game.rooms[r].memory;
+			TEMPLATE_CREEPS.forEach(t => {
+				if (_.filter(roomMemory.mins, (m) => ((m.name) == t.role)).length != 1) {
+					roomMemory.mins.push({
+						name: t.role,
+						count: 0,
+					});
+				}
+			});
+			if (!roomMemory.towersRepair) {
+				roomMemory.towersRepair = false;
+			}
+			if (!roomMemory.towersRepairWalls) {
+				roomMemory.towersRepairWalls = false;
+			}
 		}
 	}
 

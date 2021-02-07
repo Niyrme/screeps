@@ -2,72 +2,69 @@ import {
 	ROLES_ALL as Roles,
 	SPAWN_CONSTANTS
 } from "Config/Constants";
-import { getMin } from "Structures/Exports";
 import * as Template from "Config/Templates/CreepTemplates";
 
 export class CreepFactory {
 
-	static spawnCreeps() {
-		for (let spawnName in Game.spawns) {
-			if (!Game.spawns[spawnName].spawning) {
-				let energy: number = Game.spawns[spawnName].room.energyCapacityAvailable;
-				let spawn: StructureSpawn = Game.spawns[spawnName];
-				let spawnMemory: SpawnMemory = Game.spawns[spawnName].memory;
-				let creepsInRoom: any[] = Game.spawns[spawnName].room.find(FIND_MY_CREEPS);
+	private room: Room;
+	constructor(room: Room) {
+		this.room = room;
+	}
 
-				if (spawn.memory.minHarvesters !== undefined
-					&& spawn.memory.minUpgraders !== undefined
-					&& spawn.memory.minCarriers !== undefined
-					&& spawn.memory.minRepairers !== undefined
-					&& spawn.memory.minWallRepairers !== undefined
-					&& spawn.memory.minBuilders !== undefined
-					&& spawn.memory.minArchitects !== undefined) {
-
-					let countHarvesters = _.filter(creepsInRoom, (c) => (c.memory.role == Roles.ROLE_HARVESTER) && ((c.memory.mode == undefined) || (c.memory.target == undefined))).length;
-					let countMiners = _.filter(creepsInRoom, (c) => (c.memory.role == Roles.ROLE_MINER)).length;
-
-					if ((creepsInRoom.length == 0) || (countHarvesters == 0 && countMiners == 0)) {
-						if(this.spawnTemplate(spawn.room.energyAvailable, spawn, Template.TEMPLATE_CREEP_HARVESTER) == OK) {
-							console.log("SPAWNING EMERGENCY HARVESTER!");
-						}
-					}
-
-					Template.TEMPLATE_CREEPS.forEach(template => {
-						let count: number = _.filter(creepsInRoom, (c) => (c.memory.role == template.role) && (c.memory.mode == undefined)).length;
-
-						if (count < getMin(Game.spawns[spawnName], template.role)) {
-							this.spawnTemplate(energy, spawn, template);
-						}
-					});
-
-					if (spawnMemory.reserveRoom) {
-						if (this.spawnTemplate(energy, spawn, Template.TEMPLATE_CREEP_RESERVER, undefined, spawn.memory.reserveRoom) == OK) {
-							delete spawn.memory.reserveRoom;
-						}
-					}
-					else if (spawnMemory.claimRoom) {
-						if (this.spawnTemplate(energy, spawn, Template.TEMPLATE_CREEP_CLAIMER, undefined, spawn.memory.claimRoom) == OK) {
-							delete spawn.memory.claimRoom;
-						}
-					}
-				}
-				else {
-					console.log(`MISSING PROPERTY IN SPAWN ${spawn.name} IN ROOM ${spawn.room.name}`);
-				}
+	public spawnCreeps() {
+		// User owns this room
+		let energy: number = this.room.energyCapacityAvailable;
+		let creepsInRoom: Array<Creep> = this.room.find(FIND_MY_CREEPS);
+		this.room.memory.mins.forEach(m => {
+			if(m.count !== undefined) {
+				console.log(`Property ${m.name} missing in memory of room ${this.room.name}!`);
 			}
+		});
+
+		let countHarvesters = _.filter(creepsInRoom, (c) => (c.memory.role == Roles.ROLE_HARVESTER) && ((c.memory.mode == undefined) || (c.memory.target == undefined))).length;
+		let countMiners = _.filter(creepsInRoom, (c) => (c.memory.role == Roles.ROLE_MINER)).length;
+
+		if ((creepsInRoom.length == 0) || (countHarvesters == 0 && countMiners == 0)) {
+			if (this.spawnTemplate(this.room.energyAvailable, Template.TEMPLATE_CREEP_HARVESTER) == OK) {
+				console.log("SPAWNING EMERGENCY HARVESTER!");
+			}
+		}
+
+		Template.TEMPLATE_CREEPS.forEach(template => {
+			let count: number = _.filter(creepsInRoom, (c) => (c.memory.role == template.role) && (c.memory.mode == undefined)).length;
+
+			this.room.memory.mins.forEach(m => {
+				if (m.name == template.role) {
+					if (count < m.count!) {
+						this.spawnTemplate(energy, template);
+					}
+				}
+			});
+		});
+
+		if (this.room.memory.reserveRoom) {
+			if (this.spawnTemplate(energy, Template.TEMPLATE_CREEP_RESERVER, undefined, this.room.memory.reserveRoom) == OK) {
+					delete this.room.memory.reserveRoom;
+			}
+		}
+		else if (this.room.memory.claimRoom) {
+				if (this.spawnTemplate(energy, Template.TEMPLATE_CREEP_CLAIMER, undefined, this.room.memory.claimRoom) == OK) {
+					delete this.room.memory.claimRoom;
+				}
 		}
 	}
 
-	private static spawnTemplate(energy: number, spawn: StructureSpawn, template: TemplateCreep, sourceID?: string, target?: string) {
-		let creepBody: BodyPartConstant[] = [];
-		let creepName: string = `${template.name} - (${spawn.room.name} | ${spawn.name} | ${Game.time % 1650}) - ${Memory.randomData.player}`;
+	private spawnTemplate(energy: number, template: TemplateCreep, sourceID?: string, target?: string) {
+		let creepBody: Array<BodyPartConstant> = [];
+		let spawn: StructureSpawn = _.filter(this.room.find(FIND_MY_SPAWNS), (s) => (s.spawning == null))[0];
+		let creepName: string = `${template.role} - (${this.room.name} | ${spawn.name} | ${Game.time % 1650}) - ${Memory.randomData.player}`;
 		let creepMaxSize: number = MAX_CREEP_SIZE;
 
 		if (template.bodyType == SPAWN_CONSTANTS.MODE_MULTI) {
 			let partsNumber: number = Math.floor(energy / 200);
 
-			if (spawn.memory.creepMaxParts != undefined) {
-				creepMaxSize = spawn.memory.creepMaxParts!;
+			if (this.room.memory.creepMaxParts != undefined) {
+				creepMaxSize = this.room.memory.creepMaxParts!;
 			}
 
 			if (partsNumber * template.body.length > creepMaxSize) {

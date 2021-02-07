@@ -1,13 +1,12 @@
 import { CREEP_MEMORY } from "Config/Constants";
 
-export class RoleRoamer {
+export class RoleRoamer extends Role {
 
-	private creep: Creep;
 	constructor(creepName: string) {
-		this.creep = Game.creeps[creepName];
+		super(creepName)
 	}
 
-	public runCreep() {
+	runCreep() {
 		if (this.creep.memory.target) {
 			if (this.creep.room.name != this.creep.memory.target) {
 				let exit: ExitConstant | ERR_NO_PATH | ERR_INVALID_ARGS = this.creep.room.findExitTo(this.creep.memory.target);

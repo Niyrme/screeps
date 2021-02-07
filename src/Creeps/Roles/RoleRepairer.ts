@@ -1,14 +1,12 @@
 import { RoleHarvester } from "Creeps/Roles/RoleHarvester";
 
-export class RoleRepairer {
+export class RoleRepairer extends Role {
 
-	private creep: Creep;
 	constructor(creepName: string) {
-		this.creep = Game.creeps[creepName];
+		super(creepName)
 	}
 
-	public runCreep() {
-
+	runCreep() {
 		if (this.creep.memory.isWorking && this.creep.store[RESOURCE_ENERGY] == 0) {
 			this.creep.memory.isWorking = false;
 		}
