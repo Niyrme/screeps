@@ -1,7 +1,10 @@
 # Screeps
 
-My try on Screeps TypeScript
+My try on Screeps TypeScript.
+
 It's a total mess I know.
+
+- - -
 
 #### Next
 - Towers
