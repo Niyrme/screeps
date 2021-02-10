@@ -1,4 +1,4 @@
-import { ErrorMapper } from "Utils/ErrorMapper";
+import { ErrorMapper } from "utils/ErrorMapper";
 import { MANAGERS } from "Managers/Exports";
 
 export const loop = ErrorMapper.wrapLoop(() => {
