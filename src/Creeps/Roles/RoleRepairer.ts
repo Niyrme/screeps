@@ -16,7 +16,7 @@ export class RoleRepairer extends Role {
 		}
 
 		if (this.creep.memory.isWorking) {
-			let structure = this.creep.pos.findClosestByPath(FIND_STRUCTURES, { filter: (s) => ( (s.hits / s.hitsMax) <= 0.75) && s.structureType != STRUCTURE_WALL } );
+			let structure = this.creep.pos.findClosestByPath(FIND_STRUCTURES, { filter: (s) => ( (s.hits / s.hitsMax) <= 0.90) && s.structureType != STRUCTURE_WALL } );
 
 			if (structure != undefined) {
 				if (this.creep.repair(structure) == ERR_NOT_IN_RANGE) {
