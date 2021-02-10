@@ -1,4 +1,4 @@
-import { RoleHarvester } from "Creeps/Roles/RoleHarvester";
+import { RoleUpgrader } from "Creeps/Roles/RoleUpgrader";
 import { Role } from "Creeps/Roles/Role";
 
 export class RoleRepairer extends Role {
@@ -24,7 +24,7 @@ export class RoleRepairer extends Role {
 				}
 			}
 			else {
-				new RoleHarvester(this.creep.name).runCreep();
+				new RoleUpgrader(this.creep.name).runCreep();
 			}
 		}
 		else {
