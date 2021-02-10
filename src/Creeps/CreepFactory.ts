@@ -62,6 +62,7 @@ export class CreepFactory {
 	private spawnTemplate(energy: number, template: TemplateCreep, sourceID?: Id<Source>, target?: string) {
 		let creepBody: Array<BodyPartConstant> = [];
 		let spawn: StructureSpawn = _.filter(this.room.find(FIND_MY_SPAWNS), (s) => (s.spawning == null))[0];
+		if (!spawn) { return; }
 		let creepName: string = `${template.role} - ${Memory.randomData.player} (${Game.time % 1650})`;
 		let creepMaxSize: number = MAX_CREEP_SIZE;
 
