@@ -40,7 +40,11 @@ export class CreepFactory {
 							});
 						}
 						else {
-							this.spawnTemplate(energy, template);
+							if (this.spawnTemplate(energy, template) == OK) {
+								if (Memory.randomData.logging.logCreeps) {
+									console.log(`Spawning new ${template.role} in ${this.room.name}!`);
+								}
+							}
 						}
 					}
 				}

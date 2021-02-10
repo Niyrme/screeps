@@ -18,6 +18,9 @@ export class ManagerMemory extends Manager {
 			console.log("Please change the player property in Memory.randomData to your username!");
 			Memory.randomData = {
 				player: " ",
+				logging: {
+					logCreeps: false,
+				}
 			};
 		}
 	}
