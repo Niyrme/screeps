@@ -8,11 +8,11 @@ import * as R from "Creeps/Roles/Exports";
 const TEMPLATE_BODY_DEFAULT = [WORK, CARRY, MOVE]; // Cost: 200x
 
 // Creep templates
-const TEMPLATE_CREEP_ARCHITECT: TemplateCreep = {
+const TEMPLATE_CREEP_CLEANER: TemplateCreep = {
 	bodyType: SPAWN_CONSTANTS.MODE_MULTI,
 	body: [CARRY, MOVE], // Cost: 150x
-	role: Roles.ROLE_ARCHITECT,
-	creepClass: R.RoleArchitect,
+	role: Roles.ROLE_CLEANER,
+	creepClass: R.RoleCleaner,
 };
 
 const TEMPLATE_CREEP_BUILDER: TemplateCreep = {
@@ -80,7 +80,7 @@ const TEMPLATE_CREEP_UPGRADER: TemplateCreep = {
 
 
 const TEMPLATE_CREEPS: Array<TemplateCreep> = [
-	TEMPLATE_CREEP_ARCHITECT,
+	TEMPLATE_CREEP_CLEANER,
 	TEMPLATE_CREEP_BUILDER,
 	TEMPLATE_CREEP_CARRIER,
 	TEMPLATE_CREEP_HARVESTER,
@@ -94,7 +94,7 @@ const TEMPLATE_CREEPS: Array<TemplateCreep> = [
 
 export { TEMPLATE_BODY_DEFAULT }
 export {
-	TEMPLATE_CREEP_ARCHITECT,
+	TEMPLATE_CREEP_CLEANER,
 	TEMPLATE_CREEP_BUILDER,
 	TEMPLATE_CREEP_CARRIER,
 	TEMPLATE_CREEP_HARVESTER,

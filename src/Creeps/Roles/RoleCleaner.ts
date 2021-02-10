@@ -1,6 +1,6 @@
 import { Role } from "Creeps/Roles/Role";
 
-export class RoleArchitect extends Role {
+export class RoleCleaner extends Role {
 	
 	constructor(creepName: string) {
 		super(creepName);
@@ -15,7 +15,10 @@ export class RoleArchitect extends Role {
 		}
 
 		if (this.creep.memory.isWorking) {
-			let structure = this.creep.room.storage as StructureStorage | undefined;
+			let structure: StructureStorage | StructureContainer | undefined = this.creep.room.storage as StructureStorage | undefined;
+			if (structure == undefined) {
+				structure = this.creep.pos.findClosestByPath(FIND_STRUCTURES, { filter: (s) => s.structureType == STRUCTURE_CONTAINER }) as StructureContainer;
+			}
 			if ((structure != undefined) && (this.creep.transfer(structure, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE)) {
 				this.creep.moveTo(structure);
 			}
