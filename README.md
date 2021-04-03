@@ -12,7 +12,7 @@ It's a total mess I know.
   - [ ] Heal Creeps (not tested)
   - [x] Repair Structures
 - [x] Wall Repairing
-- [x] Mulit Rooming setup (reserver and claimer creep)
+- [x] Multi Rooming setup (reserver and claimer creep)
 - [ ] Links / Link Mining
 - [ ] Mineral Harvesting
 - [ ] Power Harvesting
