@@ -20,7 +20,7 @@ export class CreepFactory {
 
 		if ((creepsInRoom.length == 0) || (countHarvesters == 0 && countMiners == 0)) {
 			if (this.spawnTemplate(this.room.energyAvailable, Template.TEMPLATE_CREEP_HARVESTER) == OK) {
-				console.log("SPAWNING EMERGENCY HARVESTER!");
+				console.log(`[${this.room.name}] SPAWNING EMERGENCY HARVESTER!`);
 			}
 		}
 
