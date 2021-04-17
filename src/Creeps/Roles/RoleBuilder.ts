@@ -4,7 +4,7 @@ import { Role } from "Creeps/Roles/Role";
 export class RoleBuilder extends Role{
 
 	constructor(creepName: string) {
-		super(creepName)
+		super(creepName);
 	}
 
 	runCreep() {

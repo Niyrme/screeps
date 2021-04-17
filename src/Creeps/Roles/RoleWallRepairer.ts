@@ -1,10 +1,10 @@
-import { RoleRepairer } from "Creeps/Roles/RoleRepairer";
 import { Role } from "Creeps/Roles/Role";
+import { RoleRepairer } from "Creeps/Roles/RoleRepairer";
 
 export class RoleWallRepairer extends Role {
 
 	constructor(creepName: string) {
-		super(creepName)
+		super(creepName);
 	}
 
 	runCreep() {

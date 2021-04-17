@@ -1,6 +1,6 @@
 import {
 	ROLES_ALL as Roles,
-	SPAWN_CONSTANTS
+	SPAWN_CONSTANTS,
 } from "Config/Constants";
 import * as Template from "Config/Templates/CreepTemplates";
 
@@ -95,7 +95,7 @@ export class CreepFactory {
 			isWorking: false,
 			mode: template.mode,
 			sourceID: sourceID,
-			target: target
+			target: target,
 		}});
 	}
 }

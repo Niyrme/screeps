@@ -1,10 +1,10 @@
-import { CREEP_MEMORY } from "Config/Constants";
 import { Role } from "Creeps/Roles/Role";
+import { CREEP_MEMORY } from "Config/Constants";
 
 export class RoleRoamer extends Role {
 
 	constructor(creepName: string) {
-		super(creepName)
+		super(creepName);
 	}
 
 	runCreep() {

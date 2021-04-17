@@ -3,7 +3,7 @@ import { Role } from "Creeps/Roles/Role";
 export class RoleCarrier extends Role {
 
 	constructor(creepName: string) {
-		super(creepName)
+		super(creepName);
 	}
 
 	runCreep() {
@@ -16,7 +16,7 @@ export class RoleCarrier extends Role {
 
 		if (this.creep.memory.isWorking) {
 			var structure = this.creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-				filter: s => ( s.structureType == STRUCTURE_SPAWN || (s.structureType == STRUCTURE_TOWER && ((s.store[RESOURCE_ENERGY] / s.store.getCapacity(RESOURCE_ENERGY)) <= 0.75)) || s.structureType == STRUCTURE_EXTENSION) && s.store[RESOURCE_ENERGY] < s.store.getCapacity(RESOURCE_ENERGY) 
+				filter: s => ( s.structureType == STRUCTURE_SPAWN || (s.structureType == STRUCTURE_TOWER && ((s.store[RESOURCE_ENERGY] / s.store.getCapacity(RESOURCE_ENERGY)) <= 0.75)) || s.structureType == STRUCTURE_EXTENSION) && s.store[RESOURCE_ENERGY] < s.store.getCapacity(RESOURCE_ENERGY)
 			}) as StructureSpawn | StructureTower | StructureExtension | StructureStorage | undefined | null;
 
 			if (!structure) { structure = this.creep.room.storage; }

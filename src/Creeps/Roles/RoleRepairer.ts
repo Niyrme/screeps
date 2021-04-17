@@ -1,10 +1,10 @@
-import { RoleUpgrader } from "Creeps/Roles/RoleUpgrader";
 import { Role } from "Creeps/Roles/Role";
+import { RoleUpgrader } from "Creeps/Roles/RoleUpgrader";
 
 export class RoleRepairer extends Role {
 
 	constructor(creepName: string) {
-		super(creepName)
+		super(creepName);
 	}
 
 	runCreep() {
