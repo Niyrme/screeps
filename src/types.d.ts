@@ -13,7 +13,10 @@ interface CreepMemory {
 }
 
 interface RoomMemory {
-	mins: Array<MemoryMin>;
+	mins: Array<{
+		name: string;
+		count: number;
+	}>;
 
 	creepMaxParts?: number;
 
@@ -24,10 +27,6 @@ interface RoomMemory {
 	towersRepairWalls?: boolean;
 }
 
-interface MemoryMin {
-	name: string;
-	count: number;
-}
 
 interface Memory {
 	uuid: number;
@@ -39,13 +38,12 @@ interface TemplateCreep {
 	role: string;
 
 	bodyType: string;
-	body: BodyPartConstant[];
+	body: Array<BodyPartConstant>;
 
 	creepClass: any;
 	mode?: string;
 }
 
-// `global` extension samples
 declare namespace NodeJS {
 	interface Global {
 		log: any;
