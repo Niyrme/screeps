@@ -1,5 +1,5 @@
-import { RoleUpgrader } from "Creeps/Roles/RoleUpgrader";
 import { Role } from "Creeps/Roles/Role";
+import { RoleRepairer } from "Creeps/Roles/RoleRepairer";
 
 export class RoleBuilder extends Role{
 
@@ -23,7 +23,7 @@ export class RoleBuilder extends Role{
 				}
 			}
 			else {
-				new RoleUpgrader(this.creep.name).runCreep();
+				new RoleRepairer(this.creep.name).runCreep();
 			}
 		}
 		else {
