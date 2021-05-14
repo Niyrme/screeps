@@ -67,7 +67,8 @@ export class CreepFactory {
 		let creepBody: Array<BodyPartConstant> = [];
 		let spawn: StructureSpawn = _.filter(this.room.find(FIND_MY_SPAWNS), (s) => (s.spawning == null))[0];
 		if (!spawn) { return; }
-		let creepName: string = `${template.role} - ${Memory.randomData.player} (${Game.time % 1650})`;
+		const timestamp: string = `${Game.time}`.slice(-8);
+		let creepName: string = `${template.role} - ${Memory.randomData.player} (${timestamp})`;
 		let creepMaxSize: number = MAX_CREEP_SIZE;
 
 		if (template.bodyType == SPAWN_CONSTANTS.MODE_MULTI) {
@@ -81,7 +82,7 @@ export class CreepFactory {
 				partsNumber = Math.floor(creepMaxSize / template.body.length);
 			}
 			template.body.forEach(part => {
-				for (let i=0;i<partsNumber;i++) {
+				for (let i = 0; i < partsNumber; i++) {
 					creepBody.push(part);
 				}
 			});
