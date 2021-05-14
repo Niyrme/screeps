@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.166.0/containers/docker-existing-dockerfile
 {
-  "name": "Screeps-TypeScript-Starter",
+  "name": "Screeps",
 
   // Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
   "dockerFile": "Dockerfile",
@@ -12,7 +12,17 @@
   },
 
   // Add the IDs of extensions you want installed when the container is created.
-  "extensions": []
+  "extensions": [
+		"dbaeumer.vscode-eslint",
+		"eamodio.gitlens",
+		"waderyan.nodejs-extension-pack",
+		"eg2.vscode-npm-script",
+		"christian-kohler.npm-intellisense",
+		"esbenp.prettier-vscode",
+		"trabpukcip.vscode-npm-scripts",
+		"christian-kohler.path-intellisense",
+		"fabiospampinato.vscode-todo-plus"
+	]
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // "forwardPorts": [],
