@@ -1,6 +1,12 @@
 TODO:
+	Creeps:
+		[ ] Links / Link Mining
+		[ ] Mineral Harvesting
+		[ ] Power Harvesting
+		[ ] Regeneration at spawns
+		Builder:
+			Prioritites:
+				[ ] Wall > Rampart
+				[ ] Less energy required > More required
 	Towers:
 		[ ] Heal Creeps (needs testing)
-	[ ] Links / Link Mining
-	[ ] Mineral Harvesting
-	[ ] Power Harvesting
