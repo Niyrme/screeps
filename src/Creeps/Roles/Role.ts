@@ -3,5 +3,5 @@ export abstract class Role {
 	constructor(creepName: string) {
 		this.creep = Game.creeps[creepName];
 	}
-	abstract runCreep(): void;
+	abstract runCreep() : void;
 }

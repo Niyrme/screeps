@@ -6,7 +6,7 @@ export class RoleHarvester extends Role {
 		super(creepName);
 	}
 
-	runCreep() {
+	runCreep() : void {
 		if (this.creep.memory.isWorking && this.creep.store[RESOURCE_ENERGY] == 0) {
 			this.creep.memory.isWorking = false;
 		}
@@ -35,9 +35,9 @@ export class RoleHarvester extends Role {
 		else {
 			if (this.creep.memory.target != undefined) {
 				if (this.creep.room.name != this.creep.memory.target) {
-					let exit: ExitConstant | ERR_NO_PATH | ERR_INVALID_ARGS = this.creep.room.findExitTo(this.creep.memory.target);
+					const exit: ExitConstant | ERR_NO_PATH | ERR_INVALID_ARGS = this.creep.room.findExitTo(this.creep.memory.target);
 					if (exit > 0) { // No Error
-						let closest = this.creep.pos.findClosestByPath(exit as ExitConstant)
+						const closest = this.creep.pos.findClosestByPath(exit as ExitConstant)
 						if (closest) { // Found an exit
 							this.creep.moveTo(closest);
 						}
@@ -48,7 +48,7 @@ export class RoleHarvester extends Role {
 				}
 			}
 			else {
-				let source = this.creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE) as Source | undefined | null;
+				const source = this.creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE) as Source | undefined | null;
 				if (source) {
 					if (this.creep.harvest(source) == ERR_NOT_IN_RANGE) {
 						if (this.creep.moveTo(source) == ERR_NO_PATH || this.creep.moveTo(source) == ERR_INVALID_TARGET) {

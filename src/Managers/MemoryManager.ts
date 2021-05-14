@@ -2,7 +2,7 @@ import { TEMPLATE_CREEPS } from "Config/Templates/CreepTemplates";
 import { Manager } from "Managers/Manager";
 
 export class ManagerMemory extends Manager {
-	manage() {
+	manage() : void {
 		this.checkMemory();
 		this.cleanAll();
 	}
@@ -25,8 +25,8 @@ export class ManagerMemory extends Manager {
 		}
 	}
 	private checkRoomMemory() {
-		for (let r in Game.rooms) {
-			let roomMemory: RoomMemory = Game.rooms[r].memory;
+		for (const r in Game.rooms) {
+			const roomMemory: RoomMemory = Game.rooms[r].memory;
 			if (!roomMemory.mins) {
 				roomMemory.mins = [];
 			}
@@ -52,7 +52,7 @@ export class ManagerMemory extends Manager {
 	}
 
 	private cleanCreeps() {
-		for (let name in Memory.creeps) {
+		for (const name in Memory.creeps) {
 			if (!(name in Game.creeps)) {
 				delete Memory.creeps[name];
 			}

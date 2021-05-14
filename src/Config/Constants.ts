@@ -20,12 +20,12 @@ enum ROLES_ALL {
 	ROLE_ROAMER = "roamer",
 	ROLE_UPGRADER = "upgrader",
 	ROLE_WALL_REPAIRER = "wallRepairer",
-};
+}
 
 enum CREEP_MEMORY {
 	MODE_CLAIM = "claim",
 	MODE_RESERVE = "reserve",
-};
+}
 
 enum SPAWN_CONSTANTS {
 	MODE_SINGLE = "single",

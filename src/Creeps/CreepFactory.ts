@@ -11,12 +11,12 @@ export class CreepFactory {
 		this.room = room;
 	}
 
-	public spawnCreeps() {
-		let energy: number = this.room.energyCapacityAvailable;
-		let creepsInRoom: Array<Creep> = this.room.find(FIND_MY_CREEPS);
+	public spawnCreeps() : void {
+		const energy: number = this.room.energyCapacityAvailable;
+		const creepsInRoom: Array<Creep> = this.room.find(FIND_MY_CREEPS);
 
-		let countHarvesters = _.filter(creepsInRoom, (c) => (c.memory.role == Roles.ROLE_HARVESTER) && ((c.memory.mode == undefined) || (c.memory.target == undefined))).length;
-		let countMiners = _.filter(creepsInRoom, (c) => (c.memory.role == Roles.ROLE_MINER)).length;
+		const countHarvesters = _.filter(creepsInRoom, (c) => (c.memory.role == Roles.ROLE_HARVESTER) && ((c.memory.mode == undefined) || (c.memory.target == undefined))).length;
+		const countMiners = _.filter(creepsInRoom, (c) => (c.memory.role == Roles.ROLE_MINER)).length;
 
 		if ((creepsInRoom.length == 0) || (countHarvesters == 0 && countMiners == 0)) {
 			if (this.spawnTemplate(this.room.energyAvailable, Template.TEMPLATE_CREEP_HARVESTER) == OK) {
@@ -25,7 +25,7 @@ export class CreepFactory {
 		}
 
 		Template.TEMPLATE_CREEPS.forEach(template => {
-			let count: number = _.filter(creepsInRoom, (c) => (c.memory.role == template.role) && (c.memory.mode == undefined)).length;
+			const count: number = _.filter(creepsInRoom, (c) => (c.memory.role == template.role) && (c.memory.mode == undefined)).length;
 
 			this.room.memory.mins.forEach(m => {
 				if (m.name == template.role) {
@@ -65,17 +65,17 @@ export class CreepFactory {
 
 	private spawnTemplate(energy: number, template: TemplateCreep, sourceID?: Id<Source>, target?: string) {
 		let creepBody: Array<BodyPartConstant> = [];
-		let spawn: StructureSpawn = _.filter(this.room.find(FIND_MY_SPAWNS), (s) => (s.spawning == null))[0];
+		const spawn: StructureSpawn = _.filter(this.room.find(FIND_MY_SPAWNS), (s) => (s.spawning == null))[0];
 		if (!spawn) { return; }
 		const timestamp: string = `${Game.time}`.slice(-8);
-		let creepName: string = `${template.role} - ${Memory.randomData.player} (${timestamp})`;
+		const creepName: string = `${template.role} - ${Memory.randomData.player} (${timestamp})`;
 		let creepMaxSize: number = MAX_CREEP_SIZE;
 
 		if (template.bodyType == SPAWN_CONSTANTS.MODE_MULTI) {
 			let partsNumber: number = Math.floor(energy / 200);
 
 			if (this.room.memory.creepMaxParts != undefined) {
-				creepMaxSize = this.room.memory.creepMaxParts!;
+				creepMaxSize = this.room.memory.creepMaxParts;
 			}
 
 			if (partsNumber * template.body.length > creepMaxSize) {
@@ -95,8 +95,8 @@ export class CreepFactory {
 			role: template.role,
 			isWorking: false,
 			mode: template.mode,
-			sourceID: sourceID,
-			target: target,
+			sourceID,
+			target,
 		}});
 	}
 }

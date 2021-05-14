@@ -9,8 +9,8 @@ export class cStructureTower extends cStructure {
 		this.tower = tower;
 	}
 
-	public manage() {
-		let enemyCreeps: Creep[] | undefined = this.tower.room.find(FIND_HOSTILE_CREEPS);
+	public manage() : void {
+		const enemyCreeps: Creep[] | undefined = this.tower.room.find(FIND_HOSTILE_CREEPS);
 
 		if (enemyCreeps.length > 0) {
 			this.attack();
@@ -23,14 +23,14 @@ export class cStructureTower extends cStructure {
 		}
 	}
 
-	attack() {
-		let target: Creep | null = this.tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+	attack() : void {
+		const target: Creep | null = this.tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
 		if (target != null) {
 			this.tower.attack(target);
 		}
 	}
 
-	repair(doWalls?: boolean) {
+	repair(doWalls?: boolean) : void {
 		let structure: Structure | null = this.tower.pos.findClosestByRange(FIND_STRUCTURES, { filter: (s) => s.hits < s.hitsMax && s.structureType != STRUCTURE_WALL });
 		if (structure == null && doWalls) {
 			structure = this.tower.pos.findClosestByRange(FIND_STRUCTURES, { filter: (s) => s.hits < s.hitsMax && s.structureType == STRUCTURE_WALL });
@@ -40,8 +40,8 @@ export class cStructureTower extends cStructure {
 		}
 	}
 
-	heal() {
-		let target: Creep | null = this.tower.pos.findClosestByRange(FIND_MY_CREEPS, { filter: (c) => c.hits < c.hitsMax });
+	heal() : void {
+		const target: Creep | null = this.tower.pos.findClosestByRange(FIND_MY_CREEPS, { filter: (c) => c.hits < c.hitsMax });
 		if (target != null) {
 			this.tower.heal(target);
 		}

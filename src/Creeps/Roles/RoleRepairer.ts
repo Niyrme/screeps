@@ -7,7 +7,7 @@ export class RoleRepairer extends Role {
 		super(creepName);
 	}
 
-	runCreep() {
+	runCreep() : void {
 		if (this.creep.memory.isWorking && this.creep.store[RESOURCE_ENERGY] == 0) {
 			this.creep.memory.isWorking = false;
 		}
@@ -16,7 +16,7 @@ export class RoleRepairer extends Role {
 		}
 
 		if (this.creep.memory.isWorking) {
-			let structure = this.creep.pos.findClosestByPath(FIND_STRUCTURES, { filter: (s) => ( (s.hits / s.hitsMax) <= 0.90) && s.structureType != STRUCTURE_WALL } );
+			const structure = this.creep.pos.findClosestByPath(FIND_STRUCTURES, { filter: (s) => ( (s.hits / s.hitsMax) <= 0.90) && s.structureType != STRUCTURE_WALL } );
 
 			if (structure != undefined) {
 				if (this.creep.repair(structure) == ERR_NOT_IN_RANGE) {
@@ -28,7 +28,7 @@ export class RoleRepairer extends Role {
 			}
 		}
 		else {
-			let container = this.creep.pos.findClosestByPath(FIND_STRUCTURES, { filter: (s) => s.structureType == STRUCTURE_CONTAINER && s.store[RESOURCE_ENERGY] > 0 });
+			const container = this.creep.pos.findClosestByPath(FIND_STRUCTURES, { filter: (s) => s.structureType == STRUCTURE_CONTAINER && s.store[RESOURCE_ENERGY] > 0 });
 
 			if (container != undefined) {
 				if (this.creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
@@ -36,7 +36,7 @@ export class RoleRepairer extends Role {
 				}
 			}
 			else {
-				var source = this.creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE) as Source | undefined | null;
+				const source = this.creep.pos.findClosestByPath(FIND_SOURCES_ACTIVE) as Source | undefined | null;
 				if (source) {
 					if (this.creep.harvest(source) == ERR_NOT_IN_RANGE) {
 						if (this.creep.moveTo(source) == ERR_NO_PATH || this.creep.moveTo(source) == ERR_INVALID_TARGET) {

@@ -53,11 +53,10 @@ declare global {
 			log: any;
 		}
 	}
-
 }
 
 export const loop = ErrorMapper.wrapLoop(() => {
-	for (let manager of MANAGERS) {
+	for (const manager of MANAGERS) {
 		manager.manage();
 	}
 });

@@ -8,8 +8,6 @@ module.exports = {
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:prettier/recommended",
-    "prettier/@typescript-eslint",
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript"
@@ -29,12 +27,17 @@ module.exports = {
     }
   },
   rules: {
-    "@typescript-eslint/array-type": "error",
+		"@typescript-eslint/no-unsafe-call": "off",
+		"@typescript-eslint/no-namespace": "off",
+		"@typescript-eslint/no-unsafe-member-access": "off",
+		"@typescript-eslint/restrict-template-expressions": "off",
+		"@typescript-eslint/no-inferrable-types": "off",
+    "@typescript-eslint/array-type": "off",
     "@typescript-eslint/consistent-type-assertions": "error",
     "@typescript-eslint/consistent-type-definitions": "error",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-member-accessibility": [
-      "error",
+      "off",
       {
         accessibility: "explicit"
       }
@@ -51,7 +54,7 @@ module.exports = {
     complexity: "off",
     "dot-notation": "error",
     "eol-last": "off",
-    eqeqeq: ["error", "smart"],
+    eqeqeq: "off",
     "guard-for-in": "off",
     "id-blacklist": ["error", "any", "Number", "number", "String", "string", "Boolean", "boolean", "Undefined"],
     "id-match": "error",
@@ -68,7 +71,7 @@ module.exports = {
     "no-multiple-empty-lines": "off",
     "no-new-wrappers": "error",
     "no-shadow": [
-      "error",
+      "off",
       {
         hoist: "all"
       }
@@ -82,7 +85,7 @@ module.exports = {
     "one-var": ["error", "never"],
     "quote-props": "off",
     radix: "error",
-    "sort-imports": "warn",
+    "sort-imports": "off",
     "spaced-comment": "error",
   }
 };

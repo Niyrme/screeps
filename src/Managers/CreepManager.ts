@@ -4,10 +4,10 @@ import {
 import { Manager } from "Managers/Manager";
 
 export class ManagerCreeps extends Manager {
-	manage() {
-		for (let creep in Game.creeps) {
-			let creepName = Game.creeps[creep].name;
-			let creepRole = Game.creeps[creep].memory.role;
+	manage() : void {
+		for (const creep in Game.creeps) {
+			const creepName = Game.creeps[creep].name;
+			const creepRole = Game.creeps[creep].memory.role;
 
 			Templates.forEach(template => {
 				if (creepRole == template.role) {
