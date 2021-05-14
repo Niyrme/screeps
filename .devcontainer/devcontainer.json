@@ -18,10 +18,10 @@
 		"waderyan.nodejs-extension-pack",
 		"eg2.vscode-npm-script",
 		"christian-kohler.npm-intellisense",
-		"esbenp.prettier-vscode",
 		"trabpukcip.vscode-npm-scripts",
 		"christian-kohler.path-intellisense",
-		"fabiospampinato.vscode-todo-plus"
+		"fabiospampinato.vscode-todo-plus",
+		"editorconfig.editorconfig"
 	]
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
