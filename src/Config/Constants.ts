@@ -1,3 +1,8 @@
+/* eslint-disable
+	@typescript-eslint/no-inferrable-types,
+	no-shadow,
+*/
+
 // Roles
 const ROLE_BUILDER: string = "builder";
 const ROLE_CARRIER: string = "carrier";

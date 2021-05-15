@@ -10,6 +10,7 @@ export class RoleMiner extends Role {
 		if (!this.creep.memory.sourceID) {
 			console.log(`Creep ${this.creep.name} is missing the sourceID property in it's memory!`);
 		}
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const source: Source | null = Game.getObjectById(this.creep.memory.sourceID!);
 		let container: StructureContainer | undefined;
 		if (source) {

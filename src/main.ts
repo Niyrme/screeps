@@ -48,6 +48,7 @@ declare global {
 		mode?: string;
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-namespace
 	namespace NodeJS {
 		interface Global {
 			log: any;

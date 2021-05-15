@@ -27,11 +27,6 @@ module.exports = {
     }
   },
   rules: {
-		"@typescript-eslint/no-unsafe-call": "off",
-		"@typescript-eslint/no-namespace": "off",
-		"@typescript-eslint/no-unsafe-member-access": "off",
-		"@typescript-eslint/restrict-template-expressions": "off",
-		"@typescript-eslint/no-inferrable-types": "off",
     "@typescript-eslint/array-type": "off",
     "@typescript-eslint/consistent-type-assertions": "error",
     "@typescript-eslint/consistent-type-definitions": "error",
@@ -71,7 +66,7 @@ module.exports = {
     "no-multiple-empty-lines": "off",
     "no-new-wrappers": "error",
     "no-shadow": [
-      "off",
+      "warn",
       {
         hoist: "all"
       }

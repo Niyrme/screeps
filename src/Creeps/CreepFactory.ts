@@ -1,3 +1,7 @@
+/* eslint-disable
+	@typescript-eslint/no-unsafe-member-access
+*/
+
 import {
 	ROLES_ALL as Roles,
 	SPAWN_CONSTANTS,
@@ -68,6 +72,7 @@ export class CreepFactory {
 		const spawn: StructureSpawn = _.filter(this.room.find(FIND_MY_SPAWNS), (s) => (s.spawning == null))[0];
 		if (!spawn) { return; }
 		const timestamp: string = `${Game.time}`.slice(-8);
+		// eslint-disable-next-line @typescript-eslint/no-inferrable-types, @typescript-eslint/restrict-template-expressions
 		const creepName: string = `${template.role} - ${Memory.randomData.player} (${timestamp})`;
 		let creepMaxSize: number = MAX_CREEP_SIZE;
 
