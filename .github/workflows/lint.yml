@@ -1,0 +1,23 @@
+name: Lint
+
+on:
+  push:
+  pull_request:
+
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: setup Node
+        uses: actions/setup-node@v2.1.5
+
+      - name: install node packages
+        run: npm i
+
+      - name: lint code
+        run: npm run lint
