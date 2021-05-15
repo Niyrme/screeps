@@ -7,8 +7,9 @@ on:
   workflow_dispatch:
 
 jobs:
-  lint:
+  eslint:
     runs-on: ubuntu-latest
+    name: ESLint
 
     steps:
       - uses: actions/checkout@v2
