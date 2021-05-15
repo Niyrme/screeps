@@ -65,6 +65,6 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "source-map": "~0.6.1"
+    "source-map": "~0.7.3"
   }
 }
