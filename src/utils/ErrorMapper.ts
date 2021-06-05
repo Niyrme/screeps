@@ -6,10 +6,14 @@ export class ErrorMapper {
 
   public static get consumer(): SourceMapConsumer {
     if (this._consumer == null) {
-      this._consumer = new SourceMapConsumer(require("main.js.map"));
+			new SourceMapConsumer(require("main.js.map")).then(
+				v => {
+					this._consumer = v;
+				}
+			);
     }
 
-    return this._consumer;
+		return this._consumer as SourceMapConsumer;
   }
 
   // Cache previously mapped traces to improve performance

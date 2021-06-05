@@ -27,21 +27,19 @@ export class RoleBuilder extends Role{
 			}
 		}
 		else {
-			if (this.creep.memory.target != undefined) {
-				if (this.creep.room.name != this.creep.memory.target) {
-					const exit: ExitConstant | ERR_NO_PATH | ERR_INVALID_ARGS = this.creep.room.findExitTo(this.creep.memory.target);
-					if (exit > 0) { // No Error
-						const closest = this.creep.pos.findClosestByPath(exit as ExitConstant)
-						if (closest) { // Found an exit
-							this.creep.moveTo(closest);
+			if (this.creep.memory.target != undefined && this.creep.room.name != this.creep.memory.target) {
+				const exit: ExitConstant | ERR_NO_PATH | ERR_INVALID_ARGS = this.creep.room.findExitTo(this.creep.memory.target);
+				if (exit > 0) { // No Error
+					const closest = this.creep.pos.findClosestByPath(exit as ExitConstant)
+					if (closest) { // Found an exit
+						this.creep.moveTo(closest);
 						}
 					}
 				}
-				else {
-					this.creep.memory.target = undefined;
-				}
-			}
+
+
 			else {
+				if (this.creep.memory.target != undefined) { this.creep.memory.target = undefined; }
 				const storageStructure = this.creep.pos.findClosestByPath(FIND_STRUCTURES, { filter: s => (
 					s.structureType == STRUCTURE_CONTAINER
 					|| s.structureType == STRUCTURE_STORAGE)
